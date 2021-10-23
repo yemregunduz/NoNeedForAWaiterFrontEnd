@@ -1,0 +1,59 @@
+<div class="container">
+    <div class="row">
+        <div class="col-xl-12">
+            <div class="card">
+                <div class="card-body">             
+                    <h2 class="header-title pb-3 mt-0" style="text-align: center;"><b>ÜRÜNLERİMİZ</b></h2>                    
+                    <div class="table-responsive">
+                        <table class="table table-hover mb-0">
+                            <thead>
+                                <tr class="align-self-center">
+                                    <th style="width: 10%;"></th>
+                                    <th style="width: 10%;">Ürün</th>
+                                    <th>Kategori</th>
+                                    <th>Ürün Açıklaması</th>
+                                    <th>Birim Fiyat</th>                           
+                                    <th>Stok</th>
+                                    <th></th>
+                                    
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let product of products | paginate : { id :'listing_pagination', itemsPerPage:25, currentPage : page, totalItems: totalRecords}">
+                                    <td style="width: 10%;"><img src="{{product.productImagePath}}" alt="" class="thumb-sm rounded-circle mr-2"></td>
+                                    <td style="width: 15%;">{{product.productName}}</td>
+                                    <td style="width: 15%;">{{product.categoryName}}</td>
+                                    <td style="width: 35%;">{{product.productDescription}}</td>
+                                    <td style="width: 5%;">{{product.unitPrice}} TL</td>
+                                    <td style="width: 5%;">{{product.stock}}</td>
+                                    <td>
+                                        <div class="example-button-container">
+                                            <button mat-icon-button color="success" >
+                                                <mat-icon>add</mat-icon>
+                                              </button>
+                                            <button mat-icon-button color="warn" >
+                                                <mat-icon>delete</mat-icon>
+                                              </button>
+                                            <button mat-icon-button color="primary">
+                                                <mat-icon>published_with_changes</mat-icon>
+                                            </button>
+                                          </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        
+                    </div>
+                    
+                    
+                    <!--end table-responsive-->
+                    <div class="pt-3 border-top text-right"><a href="#" class="text-primary">View all <i class="mdi mdi-arrow-right"></i></a></div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+    <div>
+        <pagination-controls class="pagination-controls" id="listing_pagination" (pageChange)="onPageChange($event)"  nextLabel="İleri" previousLabel="Geri">  </pagination-controls>
+    </div>
+</div>

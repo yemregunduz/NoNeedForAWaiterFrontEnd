@@ -1,0 +1,50 @@
+<mat-toolbar class="mat-elevation-z8">
+    <button mat-icon-button  (click)="sidenav.toggle()">
+        <mat-icon *ngIf="!sidenav.opened">
+            menu
+        </mat-icon>
+        <mat-icon *ngIf="sidenav.opened">
+            close
+        </mat-icon>
+    </button>
+    Restoran Adı
+</mat-toolbar>
+
+<mat-sidenav-container>
+    <mat-sidenav #sidenav="matSidenav"  class="mat-elevation-z8" >
+
+        <img class="avatar mat-elevation-z8" src="https://media-exp1.licdn.com/dms/image/C5603AQEIgjB69wZE3Q/profile-displayphoto-shrink_800_800/0/1613239003552?e=1640217600&v=beta&t=JIWJXSKnxDBlzh7RYZCjGFV0THK93qwkyz2femewjOg" />
+
+        <h4 class="name">Yunus Emre Gündüz</h4>
+        <p class="designation">İşletme Sahibi</p>
+
+        <mat-divider></mat-divider>
+        <button mat-button class="menu-button">
+            <mat-icon class="menu-icon">assignment</mat-icon>
+            <span>Siparişler</span>
+        </button>
+        <button mat-button class="menu-button" routerLink="/mainpage/products">
+            <mat-icon class="menu-icon" >shopping_cart</mat-icon>
+            <span>Ürünler</span>
+        </button>
+
+        <mat-divider></mat-divider>
+        <button mat-button class="menu-button">
+            <mat-icon class="menu-icon">info</mat-icon>
+            <span>Hakkında</span>
+        </button>
+        <button mat-button class="menu-button">
+            <mat-icon class="menu-icon">help</mat-icon>
+            <span>Yardım</span>
+        </button>
+        <button mat-button class="menu-button" (click)="logout()">
+            <mat-icon class="menu-icon">logout</mat-icon>
+            <span>Çıkış yap</span>
+        </button>
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <div class="container" style="margin-top: 2%;">
+           <router-outlet></router-outlet>
+        </div>
+    </mat-sidenav-content>
+</mat-sidenav-container>

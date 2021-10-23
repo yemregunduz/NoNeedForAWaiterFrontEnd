@@ -1,1 +1,44 @@
 /* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+.cdk-global-overlay-wrapper, .cdk-overlay-container { z-index: 9999!important; } 
+.mat-button.mat-success,
+.mat-stroked-button.mat-success {
+    color: #155724;
+}
+.mat-button.mat-success:hover,
+.mat-stroked-button.mat-success:hover {
+  background-color: #f0fff3;
+}
+
+.mat-raised-button.mat-success,
+.mat-flat-button.mat-success,
+.mat-fab.mat-success,
+.mat-mini-fab.mat-success {
+  color: #f0fff3;
+  background-color: #155724;
+}
+
+.mat-icon-button.mat-success {
+  color:#155724;
+}
+
+.mat-button.mat-purple,
+.mat-stroked-button.mat-purple {
+    color: purple;
+}
+.mat-button.mat-purple:hover,
+.mat-stroked-button.mat-purple:hover {
+  background-color: #c794d4;
+}
+
+.mat-raised-button.mat-purple,
+.mat-flat-button.mat-purple,
+.mat-fab.mat-purple,
+.mat-mini-fab.mat-purple {
+  color: #c794d4;
+  background-color: purple;
+}
+
+
