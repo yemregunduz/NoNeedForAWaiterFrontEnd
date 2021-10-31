@@ -19,4 +19,16 @@ export class ProductService {
     let newPath = this.apiUrl+"getallproductdetailsdtobycategoryidandrestaurantid?categoryId="+categoryId+"&restaurantId"+restaurantId;
     return this.httpClient.get<ListResponseModel<Product>>(newPath);
   }
+  productAdd(product:Product){
+    let newPath= this.apiUrl+"add"
+    return this.httpClient.post(newPath,product);
+  }
+  productDelete(product:Product){
+    let newPath=this.apiUrl+"delete"
+    return this.httpClient.post(newPath,product);
+  }
+  productUpdate(product:Product){
+    let newPath=this.apiUrl+"update"
+    return this.httpClient.post(newPath,product);
+  }
 }

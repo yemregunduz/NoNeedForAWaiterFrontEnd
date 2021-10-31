@@ -1,0 +1,70 @@
+<h2 mat-dialog-title>Ürün Güncelle</h2>
+<mat-dialog-content minHeight=200 minWidth=200 >
+    <form [formGroup]="productUpdateForm">
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <mat-form-field appearance="outline">
+            <mat-label>Ürün Adı</mat-label>
+            <input matInput type="text" disableOptionCentering   required formControlName="productName" placeholder="Ürün adı giriniz">
+            <mat-icon *ngIf="productUpdateForm.controls['productName'].valid && productUpdateForm.controls['productName'].touched " style="color: seagreen;" matSuffix>sentiment_very_satisfied</mat-icon>
+            <mat-icon *ngIf="productUpdateForm.controls['productName'].invalid && productUpdateForm.controls['productName'].touched  " style="color: red;" matSuffix>sentiment_very_dissatisfied</mat-icon>
+            <mat-hint style="color: red;" *ngIf="productUpdateForm.controls['productName'].invalid && productUpdateForm.controls['productName'].touched ">Ürün adı girmek zorunludur!(En az 2, en fazla 50 karakter)</mat-hint>
+          </mat-form-field>
+          
+        </div>
+        <div class="form-group col-md-6">
+          <mat-form-field appearance="outline" style="width: 100%;" > 
+            <mat-label>Kategori</mat-label>
+            <mat-select  id="categorySelect" 
+             formControlName="categoryId" disableOptionCentering   required>
+              <mat-option *ngFor="let category of categories  " [value]="category.id">
+                {{category.categoryName}}</mat-option>
+            </mat-select>
+            <mat-icon *ngIf="productUpdateForm.controls['categoryId'].valid && productUpdateForm.controls['categoryId'].touched " style="color: seagreen;" matSuffix>sentiment_very_satisfied</mat-icon>
+            <mat-icon *ngIf="productUpdateForm.controls['categoryId'].invalid && productUpdateForm.controls['categoryId'].touched  " style="color: red;" matSuffix>sentiment_very_dissatisfied</mat-icon>
+            <mat-hint style="color: red;" *ngIf="productUpdateForm.controls['categoryId'].invalid && productUpdateForm.controls['categoryId'].touched ">Ürünün kategorisi seçilmelidir.</mat-hint>                                     
+          </mat-form-field> 
+        </div>
+      </div>
+      <div class="form-group">
+        <mat-form-field appearance="outline" style="width: 100%;">
+          <mat-label>Ürün Açıklaması</mat-label>
+          <input matInput type="text" formControlName="productDescription" placeholder="Ürün açıklaması giriniz.">
+          <mat-icon *ngIf="productUpdateForm.controls['productDescription'].valid && productUpdateForm.controls['productDescription'].touched " style="color: seagreen;" matSuffix>sentiment_very_satisfied</mat-icon>
+        </mat-form-field>
+      </div>
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <mat-form-field appearance="outline">
+            <mat-label>Birim Fiyat</mat-label>
+            <input matInput type="number" disableOptionCentering   required formControlName="unitPrice" placeholder="Birim fiyat giriniz.">
+            <mat-icon *ngIf="productUpdateForm.controls['unitPrice'].valid && productUpdateForm.controls['unitPrice'].touched " style="color: seagreen;" matSuffix>sentiment_very_satisfied</mat-icon>
+            <mat-icon *ngIf="productUpdateForm.controls['unitPrice'].invalid && productUpdateForm.controls['unitPrice'].touched  " style="color: red;" matSuffix>sentiment_very_dissatisfied</mat-icon>
+            <mat-hint style="color: red;" *ngIf="productUpdateForm.controls['unitPrice'].invalid && productUpdateForm.controls['unitPrice'].touched ">Ürünün birim fiyat girilmelidir.</mat-hint>
+          </mat-form-field>
+        </div>
+        <div class="form-group col-md-6">
+          <mat-form-field appearance="outline">
+            <mat-label>Stok</mat-label>
+            <input matInput type="number" disableOptionCentering   required formControlName="stock" placeholder="Stok adeti giriniz.">
+            <mat-icon *ngIf="productUpdateForm.controls['stock'].valid && productUpdateForm.controls['stock'].touched " style="color: seagreen;" matSuffix>sentiment_very_satisfied</mat-icon>
+            <mat-icon *ngIf="productUpdateForm.controls['stock'].invalid && productUpdateForm.controls['stock'].touched  " style="color: red;" matSuffix>sentiment_very_dissatisfied</mat-icon>
+            <mat-hint style="color: red;" *ngIf="productUpdateForm.controls['stock'].invalid && productUpdateForm.controls['stock'].touched ">Ürünün stoğu girilmelidir.</mat-hint>
+          </mat-form-field>
+        </div>
+        <div class="form-group col-md-2" style="visibility: hidden;display: none;">
+          <mat-form-field appearance="outline">
+            <mat-label>Restaurant Id</mat-label>
+            <input matInput readonly type="number" formControlName="restaurantId">
+          </mat-form-field>
+        </div>
+      </div>
+    
+  
+</form>
+    
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button color="warn" mat-dialog-close>Vazgeç</button>
+  <button mat-stroked-button  color="success" (click)="productUpdate(product)" cdkFocusInitial >Onayla</button>
+</mat-dialog-actions>

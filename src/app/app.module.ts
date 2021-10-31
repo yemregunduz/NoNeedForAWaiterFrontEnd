@@ -45,13 +45,21 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
 import { ProductComponent } from './components/product/product.component';
-import { UserComponent } from './components/user/user.component';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SidenavComponent } from './components/sidenav/sidenav.component';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
+import { ProductAddDialogComponent } from './components/product/modal/product-add-dialog/product-add-dialog.component';
+import { ProductDeleteDialogComponent } from './components/product/modal/product-delete-dialog/product-delete-dialog.component';
+import { ProductUpdateDialogComponent } from './components/product/modal/product-update-dialog/product-update-dialog.component';
+import { UserComponent } from './components/user/user.component';
+import { UserAddDialogComponent } from './components/user/modal/user-add-dialog/user-add-dialog.component';
+import { UserUpdateDialogComponent } from './components/user/modal/user-update-dialog/user-update-dialog.component';
+import { SafeHtmlPipe } from './pipes/safe-html.pipe';
+
+
 
 
 @NgModule({
@@ -59,8 +67,14 @@ import { AuthInterceptor } from './interceptors/auth.interceptor';
     AppComponent,
     LoginComponent,
     ProductComponent,
+    SidenavComponent,
+    ProductAddDialogComponent,
+    ProductDeleteDialogComponent,
+    ProductUpdateDialogComponent,
     UserComponent,
-    SidenavComponent
+    UserAddDialogComponent,
+    UserUpdateDialogComponent,
+    SafeHtmlPipe,
   ],
   imports: [
     BrowserModule,

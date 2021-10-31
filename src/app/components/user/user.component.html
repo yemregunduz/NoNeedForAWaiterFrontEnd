@@ -1,1 +1,114 @@
-<p>user works!</p>
+<mat-tab-group style="margin-top: 2%;margin-left: 2%;"animationDuration="900">
+  <mat-tab label="ÇALIŞANLARIMIZ" >
+    <div class="container" style="overflow-x: hidden;">
+      <div class="row" style="margin-top: 2%">
+        <div class="col-xl-12">
+          <div class="card">
+            <button mat-raised-button color="primary" (click)="openEmployeeAddDialog()" style="width: 140px;margin:1%;align-items: center;">Yeni Çalışan Ekle</button>   
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table table-hover mb-0">
+                  <thead>
+                    <tr class="align-self-center">
+                      <th style="width: 5%;"></th>
+                      <th>Ad</th>
+                      <th>Soyad</th>
+                      <th>Email</th>
+                      <th>Brüt Maaş</th>
+                      <th>Ünvan</th>
+                      <th>Durum</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr style="cursor: pointer;" *ngFor="let employee of employees | paginate : { id :'employeesListing', itemsPerPage:11, currentPage : pageOfEmployees, totalItems: totalRecordsOfEmployees}">
+                      <td *ngIf="employee.userImagePath!=null" (click)="openEmployeeUpdateDialog(employee)"><img
+                        [src]="getUserImagePath(employee.userImagePath)"
+                        alt=""
+                        class="thumb-sm rounded-circle mr-2"
+                      /></td>
+                      <td *ngIf="employee.userImagePath==null" (click)="openEmployeeUpdateDialog(employee)"><img
+                        src="assets/images/defaultprofileimage.jpg"
+                        alt=""
+                        class="thumb-sm rounded-circle mr-2"
+                      /></td>
+                      <td (click)="openEmployeeUpdateDialog(employee)">{{employee.firstName}} </td>
+                      <td (click)="openEmployeeUpdateDialog(employee)">{{employee.lastName}}</td>
+                      <td (click)="openEmployeeUpdateDialog(employee)">{{employee.email}}</td>
+                      <td (click)="openEmployeeUpdateDialog(employee)" *ngIf="employee.title!='İşletme Sahibi'">{{employee.salary}} ₺</td>
+                      <td  (click)="openEmployeeUpdateDialog(employee)" *ngIf="employee.title=='İşletme Sahibi'">Kâr Ortağı</td>
+                      <td>{{employee.title}}</td>
+                      <td>
+                        <mat-slide-toggle color="primary" checked (change)="updateUserStatus(employee)"></mat-slide-toggle>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <!--end table-responsive-->
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        
+        <pagination-controls  class="pagination-controls" id="employeesListing" (pageChange)="onEmployeesPageChange($event)"  nextLabel="İleri" previousLabel="Geri">  </pagination-controls>
+      </div>
+    </div>
+  </mat-tab>
+  <mat-tab label="ESKİ ÇALIŞANLARIMIZ" >
+    <div class="container">
+        <div class="row" style="margin-top: 2%">
+          <div class="col-xl-12">
+            <div class="card">
+              <div class="card-body">
+                <div class="table-responsive" style="margin-top: 3%;">
+                  <table class="table table-hover mb-0">
+                    <thead>
+                      <tr class="align-self-center">
+                        <th style="width: 5%;"></th>
+                        <th>Ad</th>
+                        <th>Soyad</th>
+                        <th>Email</th>
+                        <th>Brüt Maaş</th>
+                        <th>Ünvan</th>
+                        <th>Durum</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr style="cursor: pointer;" *ngFor="let formerEmployee of formerEmployees | paginate : { id :'formerEmployeesListing', itemsPerPage:11, currentPage : pageOfFormerEmployees, totalItems: totalRecordsOfFormerEmployees} ">
+                        <td *ngIf="formerEmployee.userImagePath!=null" (click)="openEmployeeUpdateDialog(formerEmployee)" ><img
+                          [src]="getUserImagePath(formerEmployee.userImagePath)"
+                          alt=""
+                          class="thumb-sm rounded-circle mr-2"
+                        /></td>
+                        <td *ngIf="formerEmployee.userImagePath==null" (click)="openEmployeeUpdateDialog(formerEmployee)"  ><img
+                          src="assets/images/defaultprofileimage.jpg"
+                          alt=""
+                          class="thumb-sm rounded-circle mr-2"
+                        /></td>
+                        <td (click)="openEmployeeUpdateDialog(formerEmployee)" >{{formerEmployee.firstName}}</td>
+                        <td (click)="openEmployeeUpdateDialog(formerEmployee)" >{{ formerEmployee.lastName }}</td>
+                        <td (click)="openEmployeeUpdateDialog(formerEmployee)" >{{formerEmployee.email }}</td>
+                        <td (click)="openEmployeeUpdateDialog(formerEmployee)" >{{formerEmployee.salary}}</td>
+                        <td (click)="openEmployeeUpdateDialog(formerEmployee)" >{{formerEmployee.title}}</td>
+                        <td>
+                            <mat-slide-toggle color="primary" (change)="updateUserStatus(formerEmployee)" ></mat-slide-toggle>
+                          
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <!--end table-responsive-->    
+            </div>
+          </div>
+          </div>
+        </div>
+        <div class="row">
+          <pagination-controls   class="pagination-controls" id="formerEmployeesListing" (pageChange)="onFormerEmployeesPageChange($event)"  nextLabel="İleri" previousLabel="Geri">  </pagination-controls>
+        </div>
+      </div>
+  </mat-tab>
+  
+  
+</mat-tab-group>

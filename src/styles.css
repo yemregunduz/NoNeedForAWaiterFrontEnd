@@ -40,5 +40,9 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   color: #c794d4;
   background-color: purple;
 }
+.form-control:focus {
+  border-color: #0074D9;
+  box-shadow: inset 0 1px 1px #e0e7ec, 0 0 8px #0074D9;
+}
 
-
+.cdk-overlay-connected-position-bounding-box { z-index: 10000 !important; }

@@ -10,7 +10,7 @@ body{
 }
 .table th {
     font-weight: 500;
-    color: #827fc0;
+    color: #0074D9;
 }
 .table thead {
     background-color: #f3f2f7;
@@ -41,3 +41,6 @@ body{
 .records {
     color: #3c4142;
 }
+.pagination-controls /deep/ .ngx-pagination .current {
+    background: #0074D9;
+  }

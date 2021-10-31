@@ -1,0 +1,90 @@
+<h2 mat-dialog-title>Çalışan Ekle</h2>
+<mat-dialog-content minHeight=200 minWidth=200 >
+    <form class="needs-validation" [formGroup]="userAddForm" novalidate="">
+      <div class="form-row">
+        <div class="form-group col-md-4"  *ngIf="userImagePath">
+          <img class="avatar"  [src]="userImagePath" onclick="document.getElementById('fileToUpload').click()" style="cursor: pointer;"/>
+        </div>
+        <div class="form-group col-md-4" *ngIf="userImagePath==null">
+          <img class="avatar" src="assets/images/defaultprofileimage.jpg" onclick="document.getElementById('fileToUpload').click()" style="cursor:pointer" />
+        </div>
+        <input type="file" name="file" #fileInput id="fileToUpload" (change)="onChangeFileInput($event)" style="display: none;">
+        <div class="form-group col-md-8" >
+          <div class=form-group style="width: 100%;">
+            <mat-form-field appearance="outline">
+              <mat-label>Ad</mat-label>
+              <input matInput type="text" disableOptionCentering   required formControlName="firstName" placeholder="Çalışanın adını giriniz.">
+              <mat-icon *ngIf="userAddForm.controls['firstName'].valid && userAddForm.controls['firstName'].touched " style="color: seagreen;" matSuffix>sentiment_very_satisfied</mat-icon>
+              <mat-icon *ngIf="userAddForm.controls['firstName'].invalid && userAddForm.controls['firstName'].touched  " style="color: red;" matSuffix>sentiment_very_dissatisfied</mat-icon>
+              <mat-hint style="color: red;" *ngIf="userAddForm.controls['firstName'].invalid && userAddForm.controls['firstName'].touched ">Ad en az 1 en fazla 50 karakter olmalıdır.</mat-hint>
+            </mat-form-field>
+          </div>
+          <div class="form-group" style="width: 100%;">
+            <mat-form-field appearance="outline">
+              <mat-label>Soyad</mat-label>
+              <input matInput type="text" disableOptionCentering   required formControlName="lastName" placeholder="Çalışanın soyadını giriniz.">
+              <mat-icon *ngIf="userAddForm.controls['lastName'].valid && userAddForm.controls['lastName'].touched " style="color: seagreen;" matSuffix>sentiment_very_satisfied</mat-icon>
+              <mat-icon *ngIf="userAddForm.controls['lastName'].invalid && userAddForm.controls['lastName'].touched  " style="color: red;" matSuffix>sentiment_very_dissatisfied</mat-icon>
+              <mat-hint style="color: red;" *ngIf="userAddForm.controls['lastName'].invalid && userAddForm.controls['lastName'].touched ">Soyad en az 1 en fazla 50 karakter olmalıdır.</mat-hint>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <mat-form-field appearance="outline" style="width: 100%;" >
+          <mat-label>Email</mat-label>
+          <input matInput type="text" disableOptionCentering   required  formControlName="email" placeholder="Email">
+          <mat-icon *ngIf="userAddForm.controls['email'].valid && userAddForm.controls['email'].touched " style="color: seagreen;" matSuffix>sentiment_very_satisfied</mat-icon>
+          <mat-icon *ngIf="userAddForm.controls['email'].invalid && userAddForm.controls['email'].touched  " style="color: red;" matSuffix>sentiment_very_dissatisfied</mat-icon>
+          <mat-hint style="color: red;" *ngIf="userAddForm.controls['email'].invalid && userAddForm.controls['email'].touched">Geçerli bir email adresi giriniz.</mat-hint>
+        </mat-form-field>
+        
+      </div>
+      
+      <div class="form-group">
+        <mat-form-field appearance="outline" style="width: 100%;">
+          <mat-label>Şifre</mat-label>
+          <input matInput type="password" disableOptionCentering   required formControlName="password" placeholder="Şifre">
+          <mat-icon *ngIf="userAddForm.controls['password'].valid && userAddForm.controls['password'].touched " style="color: seagreen;" matSuffix>sentiment_very_satisfied</mat-icon>
+          <mat-icon *ngIf="userAddForm.controls['password'].invalid && userAddForm.controls['password'].touched  " style="color: red;" matSuffix>sentiment_very_dissatisfied</mat-icon>
+          <mat-hint style="color: red;" *ngIf="userAddForm.controls['password'].invalid && userAddForm.controls['password'].touched ">Şifreniz en az bir büyük harf ve özel karakter içermelidir ve 8 haneli olmalıdır.</mat-hint>
+        </mat-form-field>
+      </div>
+  
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <mat-form-field appearance="outline"  > 
+        <mat-label>Ünvan</mat-label>
+        <mat-select 
+         formControlName="titleId" disableOptionCentering   required>
+          <mat-option *ngFor="let title of titles" [value]="title.id">
+            {{title.title_}}</mat-option>
+        </mat-select>
+        <mat-icon *ngIf="userAddForm.controls['titleId'].valid && userAddForm.controls['titleId'].touched " style="color: seagreen;" matSuffix>sentiment_very_satisfied</mat-icon>
+        <mat-icon *ngIf="userAddForm.controls['titleId'].invalid && userAddForm.controls['titleId'].touched  " style="color: red;" matSuffix>sentiment_very_dissatisfied</mat-icon>
+        <mat-hint style="color: red;" *ngIf="userAddForm.controls['titleId'].invalid && userAddForm.controls['titleId'].touched">Çalışanın pozisyonu seçilmelidir.</mat-hint>                                     
+      </mat-form-field> 
+    </div>
+    <div class="form-group col-md-6">
+      <mat-form-field appearance="outline">
+        <mat-label>Maaş(Aylık)</mat-label>
+        <input matInput type="number" disableOptionCentering   required formControlName="salary" placeholder="Maaş bilgisi giriniz.">
+        <mat-icon *ngIf="userAddForm.controls['salary'].valid && userAddForm.controls['salary'].touched " style="color: seagreen;" matSuffix>sentiment_very_satisfied</mat-icon>
+        <mat-icon *ngIf="userAddForm.controls['salary'].invalid && userAddForm.controls['salary'].touched  " style="color: red;" matSuffix>sentiment_very_dissatisfied</mat-icon>
+        <mat-hint style="color: red;" *ngIf="userAddForm.controls['salary'].invalid && userAddForm.controls['salary'].touched ">Maaş bilgisi girilmelidir.</mat-hint>
+      </mat-form-field>
+    </div>
+  </div>  
+    <div class="form-group col-md-2" style="visibility: hidden;display: none;">
+      <mat-form-field appearance="outline">
+        <mat-label>Restaurant Id</mat-label>
+        <input matInput readonly type="number" formControlName="restaurantId">
+      </mat-form-field>
+    </div>
+</form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button color="warn" mat-dialog-close>Vazgeç</button>
+  <button mat-stroked-button  color="success" cdkFocusInitial (click)="userAdd()">Onayla</button>
+</mat-dialog-actions>

@@ -3,8 +3,8 @@ import { MatSidenav } from '@angular/material/sidenav';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { delay } from 'rxjs/operators';
 import { ToastrService } from 'ngx-toastr';
-import { AuthService } from 'src/app/services/auth.service';
 import { Router } from '@angular/router';
+import $ from 'jquery'
 @Component({
   selector: 'app-sidenav',
   templateUrl: './sidenav.component.html',
@@ -12,9 +12,12 @@ import { Router } from '@angular/router';
 })
 export class SidenavComponent implements OnInit {
 
+  
   @ViewChild(MatSidenav)
   sidenav!: MatSidenav;
-  constructor(private observer:BreakpointObserver,private toastrService:ToastrService,private router:Router) { }
+  deviceInfoFromStorage = localStorage.getItem('deviceInfo')
+
+  constructor(private observer:BreakpointObserver,private toastrService:ToastrService,public router:Router) { }
 
   ngOnInit(): void {
   }
@@ -36,5 +39,13 @@ export class SidenavComponent implements OnInit {
     localStorage.clear()
     this.router.navigate(["login"]);
     this.toastrService.success("Giriş sayfasına yönlendiriliyorsunuz.","Çıkış başarılı!")
+  }
+  closeSidenavAfterClick(){
+    if(this.deviceInfoFromStorage=="iOS" || this.deviceInfoFromStorage=="Android"){
+      this.sidenav.close();
+    }
+  }
+  scrollUp(){
+    $("#matSidenav").scrollTop(0)
   }
 }
