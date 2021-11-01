@@ -28,9 +28,6 @@ export class UserComponent implements OnInit {
     this.getAllEmployees();
     this.getAllFormerEmployees();
   }
-  ngAfterViewInit(){
-    
-  }
   getAllEmployees(){
     this.userService.getAllUserByRestaurantIdAndStatus(this.restaurantIdFromStorage,true).subscribe(response=>{
       this.employees = response.data
@@ -87,5 +84,8 @@ export class UserComponent implements OnInit {
   }
   getUserImagePath(userImagePath:string){
     return this.userImageService.getImagePath(userImagePath);
+  }
+  trackByFn(index: number, employee:UserDetailDto ): any {
+    return employee.id;
   }
 }

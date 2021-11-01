@@ -4,7 +4,9 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
 import { Category } from 'src/app/models/category';
 import { Product } from 'src/app/models/product';
+import { ProductImage } from 'src/app/models/productImage';
 import { CategoryService } from 'src/app/services/category.service';
+import { ProductImageService } from 'src/app/services/product-image.service';
 import { ProductService } from 'src/app/services/product.service';
 
 
@@ -17,14 +19,19 @@ export class ProductUpdateDialogComponent implements OnInit {
   
   categories:Category[]
   productUpdateForm:FormGroup
+  productImages: ProductImage[];
+  productImageFile:File
+  productImagePath:string
+  productImageId:number
   @Output() onUpdated = new EventEmitter();
 
   constructor(private formBuilder:FormBuilder,public productUpdateDialogRef:MatDialogRef<ProductUpdateDialogComponent>,@Inject(MAT_DIALOG_DATA) public product:Product,
-  private productService:ProductService,private toastrService:ToastrService,private categoryService:CategoryService) { }
+  private productService:ProductService,private toastrService:ToastrService,private categoryService:CategoryService,private productImageService:ProductImageService) { }
   
   ngOnInit(): void {
     this.createProductUpdateForm()
     this.getAllCategories()
+    this.getAllProductImagesByProductId()
   }
   
   createProductUpdateForm(){
@@ -38,23 +45,73 @@ export class ProductUpdateDialogComponent implements OnInit {
       productDescription:[this.product.productDescription]
     })
   }
-  productUpdate(product:Product){
+  updateProduct(product:Product){
     if(this.productUpdateForm.valid){
-      product = Object.assign({},this.productUpdateForm.value)
-      this.productService.productUpdate(product).subscribe(response=>{
-        this.toastrService.success("Ürün güncellendi.","Başarılı!")
-        this.onUpdated.emit()
-      },responseError=>{
-        this.toastrService.error(responseError.error,"Hata!")
-      })
+      if(this.productUpdateForm.dirty){
+        product = Object.assign({},this.productUpdateForm.value)
+        this.productService.productUpdate(product).subscribe(response=>{
+          this.toastrService.success(response.message,"Başarılı!")
+          this.onUpdated.emit()
+        },responseError=>{
+          this.toastrService.error(responseError.error,"Hata!")
+        })
+      }   
     }
     else{
       this.toastrService.error("Formu eksiksiz dolurunuz.","Hata!")
     }
+      
   }
   getAllCategories(){
     this.categoryService.getAllCategories().subscribe(response=>{
       this.categories = response.data
     })
+  }
+  getAllProductImagesByProductId(){
+    this.productImageService.getAllProductsImageByProductId(this.product.id).subscribe(response=>{
+      this.productImages = response.data;
+      this.productImageId = response.data[0].id
+    })
+  }
+  getProductImagePath(productImagePath:string){
+    return this.productImageService.getProductImagePath(productImagePath);
+  }
+  onChangeFileInput(event:Event){
+    const element = event.currentTarget as HTMLInputElement
+    const reader = new FileReader()
+    let fileList:FileList | null = element.files
+    this.productImageFile = fileList[0]
+    reader.readAsDataURL(fileList[0])
+    reader.onload = () =>{
+      this.productImagePath = reader.result as string
+    }
+  }
+  updateProductImage(){
+    if(this.productImageFile!=null&&this.productImagePath!=null && this.productImages.length>0){
+      this.productImageService.updateProductImage(this.productImageFile,this.productImageId).subscribe(response=>{
+          this.onUpdated.emit()
+          this.setProductImagePathAndProductImageFileToNull()
+          this.toastrService.success(response.message,"Başarılı!")
+      },responseError=>{
+        this.toastrService.error(responseError.error,"Ürün fotoğrafı güncellenemedi!")
+      })
+    }
+    if(this.productImagePath!=null && this.productImages.length==0){
+      this.addProductImage();
+    }
+  }
+
+  addProductImage(){
+    this.productImageService.addProductImage(this.productImageFile,this.product.id).subscribe(response=>{
+      this.toastrService.success(response.message,"Başarılı!")
+        this.setProductImagePathAndProductImageFileToNull()
+        this.onUpdated.emit()
+      },responseError=>{
+        this.toastrService.error(responseError.error,"Hata!")
+      })
+  }
+  setProductImagePathAndProductImageFileToNull(){
+    this.productImageFile = null;
+    this.productImagePath = null;
   }
 }

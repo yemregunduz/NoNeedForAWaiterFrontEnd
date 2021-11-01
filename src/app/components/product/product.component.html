@@ -19,8 +19,9 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr *ngFor="let product of products | paginate : { id :'listing_pagination', itemsPerPage:20, currentPage : page, totalItems: totalRecords}">
-                                    <td style="width: 10%;"><img src="{{product.productImagePath}}" alt="" class="thumb-sm rounded-circle mr-2"></td>
+                                <tr *ngFor="let product of products | paginate : { id :'listing_pagination', itemsPerPage:20, currentPage : page, totalItems: totalRecords} ;trackBy: trackByFn ">
+                                    <td style="width: 10%;" *ngIf="product.productImagePath!=null"><img [src]="getProductImagePath(product.productImagePath)" alt="" class="thumb-sm rounded-circle mr-2"></td>
+                                    <td style="width: 10%;" *ngIf="product.productImagePath==null"><img src="/assets/images/defaultproductimage.png" alt="" class="thumb-sm rounded-circle mr-2"></td>
                                     <td style="width: 15%;">{{product.productName}}</td>
                                     <td style="width: 15%;">{{product.categoryName}}</td>
                                     <td style="width: 35%;">{{product.productDescription}}</td>

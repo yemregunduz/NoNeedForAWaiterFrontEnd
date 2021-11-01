@@ -8,6 +8,7 @@ export interface Product{
     productName:string,
     stock:number,
     unitPrice:number,
+    productImageId:number,
     productImagePath:string,
     productDescription:string
 }

@@ -23,8 +23,8 @@ body{
     color: #8887a9;
 }
 .thumb-sm {
-    height: 32px;
-    width: 32px;
+    height: 50px;
+    width: 50px;
 }
 .badge-soft-warning {
     background-color: rgba(248,201,85,.2);

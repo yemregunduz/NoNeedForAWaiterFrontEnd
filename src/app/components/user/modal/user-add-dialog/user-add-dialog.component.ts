@@ -42,32 +42,37 @@ export class UserAddDialogComponent implements OnInit {
     })
   }
   userAdd(){
-    let userId:number
-    console.log(this.userAddForm)
-    var promise = new Promise((resolve,reject)=>{
       if(this.userAddForm.valid){
-        console.log(this.userAddForm)
         let registerModel = Object.assign({},this.userAddForm.value)
-        this.authService.register(registerModel).subscribe(response=>{
-          this.toastrService.success(response.message,"Başarılı!")
-          this.onAdded.emit()
-          console.log(response)
-          userId=response.data.id
-          console.log(userId)
-          resolve(response.message);
-        },responseError=>{
-          this.toastrService.error(responseError.error,"Hata!")
-        })
+        let userId:number
+        if(this.userImagePath!=null){
+          var promise = new Promise((resolve,reject)=>{
+            this.authService.register(registerModel).subscribe(response=>{
+              this.toastrService.success(response.message,"Başarılı!")
+              this.onAdded.emit()
+              userId = response.data.id
+              resolve(response.message)
+            },responseError=>{
+              this.toastrService.error(responseError.error,"Hata!")
+            })
+          })
+          promise.then((success)=>{
+            this.addUserImage(this.userImageFile,userId)
+            
+          })
+        }
+        else{
+          this.authService.register(registerModel).subscribe(response=>{
+            this.toastrService.success(response.message,"Başarılı!")
+            this.onAdded.emit();
+          })
+        }     
       }
-      
       else{
-        this.toastrService.error("Formu eksiksiz giriniz.","Hata!")
+        this.toastrService.error("Formu eksiksiz giriniz","Hata!")
       }
-    })
-    promise.then((success)=>{
-      console.log(this.userImageFile,userId)
-      this.addUserImage(this.userImageFile,userId)
-    })
+    
+    
   }
   getAllTitles(){
     this.titleService.getAllTitles().subscribe(response=>{
@@ -87,9 +92,13 @@ export class UserAddDialogComponent implements OnInit {
     
   }
   addUserImage(file:File,userId:number){
-    this.userImageService.addUserImage(file,userId).subscribe(response=>{
-      console.log(response.success)
-    })
+    if(this.userImagePath!=null){
+      this.userImageService.addUserImage(file,userId).subscribe(response=>{
+        console.log(response.success)
+        this.onAdded.emit();
+      })
+    }
+    
   }
 
 

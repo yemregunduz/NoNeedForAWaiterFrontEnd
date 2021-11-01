@@ -20,7 +20,7 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr style="cursor: pointer;" *ngFor="let employee of employees | paginate : { id :'employeesListing', itemsPerPage:11, currentPage : pageOfEmployees, totalItems: totalRecordsOfEmployees}">
+                    <tr style="cursor: pointer;" *ngFor="let employee of employees | paginate : { id :'employeesListing', itemsPerPage:11, currentPage : pageOfEmployees, totalItems: totalRecordsOfEmployees} ;trackBy: trackByFn">
                       <td *ngIf="employee.userImagePath!=null" (click)="openEmployeeUpdateDialog(employee)"><img
                         [src]="getUserImagePath(employee.userImagePath)"
                         alt=""
@@ -31,7 +31,7 @@
                         alt=""
                         class="thumb-sm rounded-circle mr-2"
                       /></td>
-                      <td (click)="openEmployeeUpdateDialog(employee)">{{employee.firstName}} </td>
+                      <td (click)="openEmployeeUpdateDialog(employee)">{{employee.firstName}}</td>
                       <td (click)="openEmployeeUpdateDialog(employee)">{{employee.lastName}}</td>
                       <td (click)="openEmployeeUpdateDialog(employee)">{{employee.email}}</td>
                       <td (click)="openEmployeeUpdateDialog(employee)" *ngIf="employee.title!='İşletme Sahibi'">{{employee.salary}} ₺</td>
@@ -75,7 +75,7 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <tr style="cursor: pointer;" *ngFor="let formerEmployee of formerEmployees | paginate : { id :'formerEmployeesListing', itemsPerPage:11, currentPage : pageOfFormerEmployees, totalItems: totalRecordsOfFormerEmployees} ">
+                      <tr style="cursor: pointer;" *ngFor="let formerEmployee of formerEmployees | paginate : { id :'formerEmployeesListing', itemsPerPage:11, currentPage : pageOfFormerEmployees, totalItems: totalRecordsOfFormerEmployees};trackBy: trackByFn ">
                         <td *ngIf="formerEmployee.userImagePath!=null" (click)="openEmployeeUpdateDialog(formerEmployee)" ><img
                           [src]="getUserImagePath(formerEmployee.userImagePath)"
                           alt=""

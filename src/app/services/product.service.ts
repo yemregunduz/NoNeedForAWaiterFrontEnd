@@ -2,6 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ListResponseModel } from '../models/listResponseModel';
 import { Product } from '../models/product';
+import { ResponseModel } from '../models/responseModel';
+import { SingleResponseModel } from '../models/singleResponseModel';
 
 @Injectable({
   providedIn: 'root'
@@ -21,14 +23,14 @@ export class ProductService {
   }
   productAdd(product:Product){
     let newPath= this.apiUrl+"add"
-    return this.httpClient.post(newPath,product);
+    return this.httpClient.post<SingleResponseModel<Product>>(newPath,product);
   }
   productDelete(product:Product){
     let newPath=this.apiUrl+"delete"
-    return this.httpClient.post(newPath,product);
+    return this.httpClient.post<ResponseModel>(newPath,product);
   }
   productUpdate(product:Product){
     let newPath=this.apiUrl+"update"
-    return this.httpClient.post(newPath,product);
+    return this.httpClient.post<ResponseModel>(newPath,product);
   }
 }

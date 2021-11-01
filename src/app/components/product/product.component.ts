@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild,Inject, Output, EventEmitter } from '@angu
 import { MatDialog,MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
 import { Product } from 'src/app/models/product';
+import { ProductImageService } from 'src/app/services/product-image.service';
 import { ProductService } from 'src/app/services/product.service';
 import { LoginComponent } from '../login/login.component';
 import { ProductAddDialogComponent } from './modal/product-add-dialog/product-add-dialog.component';
@@ -21,7 +22,7 @@ export class ProductComponent implements OnInit {
   products : Product[];
   restaurantIdFromStorage:number = parseInt(localStorage.getItem('restaurantId'))
   @Output() scrolled = new EventEmitter()
-  constructor(private productService:ProductService,private toastrService:ToastrService,public dialog:MatDialog) { }
+  constructor(private productService:ProductService,private toastrService:ToastrService,public dialog:MatDialog,private productImageService:ProductImageService) { }
 
   ngOnInit(): void {
     this.getAllProductDetailsDtoByRestaurantId()
@@ -69,5 +70,11 @@ export class ProductComponent implements OnInit {
       this.getAllProductDetailsDtoByRestaurantId();
       productUpdateDialogRef.close();
     })
+  }
+  getProductImagePath(productImagePath:string){
+    return this.productImageService.getProductImagePath(productImagePath);
+  }
+  trackByFn(index: number, product: Product): any {
+    return product.id;
   }
 }

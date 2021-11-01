@@ -2,29 +2,43 @@
 <mat-dialog-content minHeight=200 minWidth=200 >
     <form [formGroup]="productUpdateForm">
       <div class="form-row">
-        <div class="form-group col-md-6">
-          <mat-form-field appearance="outline">
-            <mat-label>Ürün Adı</mat-label>
-            <input matInput type="text" disableOptionCentering   required formControlName="productName" placeholder="Ürün adı giriniz">
-            <mat-icon *ngIf="productUpdateForm.controls['productName'].valid && productUpdateForm.controls['productName'].touched " style="color: seagreen;" matSuffix>sentiment_very_satisfied</mat-icon>
-            <mat-icon *ngIf="productUpdateForm.controls['productName'].invalid && productUpdateForm.controls['productName'].touched  " style="color: red;" matSuffix>sentiment_very_dissatisfied</mat-icon>
-            <mat-hint style="color: red;" *ngIf="productUpdateForm.controls['productName'].invalid && productUpdateForm.controls['productName'].touched ">Ürün adı girmek zorunludur!(En az 2, en fazla 50 karakter)</mat-hint>
-          </mat-form-field>
-          
+        <div class="form-group col-md-4" *ngIf="productImages.length!=0 && productImagePath == null">
+          <img class="avatar" *ngFor="let productImage of productImages" style="cursor: pointer;" onclick="document.getElementById('fileToUpload').click()" [src]="getProductImagePath(productImage.productImagePath)" />
         </div>
-        <div class="form-group col-md-6">
-          <mat-form-field appearance="outline" style="width: 100%;" > 
-            <mat-label>Kategori</mat-label>
-            <mat-select  id="categorySelect" 
-             formControlName="categoryId" disableOptionCentering   required>
-              <mat-option *ngFor="let category of categories  " [value]="category.id">
-                {{category.categoryName}}</mat-option>
-            </mat-select>
-            <mat-icon *ngIf="productUpdateForm.controls['categoryId'].valid && productUpdateForm.controls['categoryId'].touched " style="color: seagreen;" matSuffix>sentiment_very_satisfied</mat-icon>
-            <mat-icon *ngIf="productUpdateForm.controls['categoryId'].invalid && productUpdateForm.controls['categoryId'].touched  " style="color: red;" matSuffix>sentiment_very_dissatisfied</mat-icon>
-            <mat-hint style="color: red;" *ngIf="productUpdateForm.controls['categoryId'].invalid && productUpdateForm.controls['categoryId'].touched ">Ürünün kategorisi seçilmelidir.</mat-hint>                                     
-          </mat-form-field> 
+
+        <div class="form-group col-md-4" *ngIf="productImages.length==0 && productImagePath==null">
+          <img class="avatar"  src="assets/images/defaultprofileimage.jpg" style="cursor: pointer;" onclick="document.getElementById('fileToUpload').click()" />
         </div>
+        <div class="form-group col-md-4" *ngIf="productImagePath!=null">
+          <img class="avatar"  style="cursor: pointer;" onclick="document.getElementById('fileToUpload').click()" [src]="productImagePath" />
+        </div>
+        <input type="file" name="file" #fileInput id="fileToUpload" (change)="onChangeFileInput($event)" style="display: none;">
+        <div class="form-group col-md-8"> 
+          <div class="form-group ">
+            <mat-form-field appearance="outline">
+              <mat-label>Ürün Adı</mat-label>
+              <input matInput type="text" disableOptionCentering   required formControlName="productName" placeholder="Ürün adı giriniz">
+              <mat-icon *ngIf="productUpdateForm.controls['productName'].valid && productUpdateForm.controls['productName'].touched " style="color: seagreen;" matSuffix>sentiment_very_satisfied</mat-icon>
+              <mat-icon *ngIf="productUpdateForm.controls['productName'].invalid && productUpdateForm.controls['productName'].touched  " style="color: red;" matSuffix>sentiment_very_dissatisfied</mat-icon>
+              <mat-hint style="color: red;" *ngIf="productUpdateForm.controls['productName'].invalid && productUpdateForm.controls['productName'].touched ">Ürün adı girmek zorunludur!(En az 2, en fazla 50 karakter)</mat-hint>
+            </mat-form-field>
+            
+          </div>
+          <div class="form-group ">
+            <mat-form-field appearance="outline" style="width: 100%;" > 
+              <mat-label>Kategori</mat-label>
+              <mat-select  id="categorySelect" 
+               formControlName="categoryId" disableOptionCentering   required>
+                <mat-option *ngFor="let category of categories  " [value]="category.id">
+                  {{category.categoryName}}</mat-option>
+              </mat-select>
+              <mat-icon *ngIf="productUpdateForm.controls['categoryId'].valid && productUpdateForm.controls['categoryId'].touched " style="color: seagreen;" matSuffix>sentiment_very_satisfied</mat-icon>
+              <mat-icon *ngIf="productUpdateForm.controls['categoryId'].invalid && productUpdateForm.controls['categoryId'].touched  " style="color: red;" matSuffix>sentiment_very_dissatisfied</mat-icon>
+              <mat-hint style="color: red;" *ngIf="productUpdateForm.controls['categoryId'].invalid && productUpdateForm.controls['categoryId'].touched ">Ürünün kategorisi seçilmelidir.</mat-hint>                                     
+            </mat-form-field> 
+          </div>
+        </div>
+        
       </div>
       <div class="form-group">
         <mat-form-field appearance="outline" style="width: 100%;">
@@ -66,5 +80,6 @@
 </mat-dialog-content>
 <mat-dialog-actions align="end">
   <button mat-button color="warn" mat-dialog-close>Vazgeç</button>
-  <button mat-stroked-button  color="success" (click)="productUpdate(product)" cdkFocusInitial >Onayla</button>
+  <button mat-stroked-button  color="success" (click)="updateProduct(product)" *ngIf="productUpdateForm.dirty || productImageFile != null" (click)="updateProductImage()"cdkFocusInitial >Onayla</button>
+  <button mat-stroked-button disabled color="success"  *ngIf="!productUpdateForm.dirty && productImageFile==null"  >Onayla</button>
 </mat-dialog-actions>
