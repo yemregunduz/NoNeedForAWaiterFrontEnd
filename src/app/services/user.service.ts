@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ListResponseModel } from '../models/listResponseModel';
 import { ResponseModel } from '../models/responseModel';
+import { SingleResponseModel } from '../models/singleResponseModel';
 import { User } from '../models/user';
 import { UserDetailDto } from '../models/userDetailDto';
 
@@ -29,5 +30,9 @@ export class UserService {
   updateUserWithoutPassword(employee:UserDetailDto){
     let newPath = this.apiUrl+"updateuserwithoutpassword"
     return this.httpClient.post<ResponseModel>(newPath,employee)
+  }
+  getUserDetailDtoByUserId(userId:number){
+    let newPath = this.apiUrl+"getuserdetaildtobyuserid?userId="+userId
+    return this.httpClient.get<SingleResponseModel<UserDetailDto>>(newPath);
   }
 } 

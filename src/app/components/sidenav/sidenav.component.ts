@@ -6,6 +6,9 @@ import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import $ from 'jquery'
 import { LocalStorageService } from 'src/app/services/local-storage.service';
+import { UserService } from 'src/app/services/user.service';
+import { UserDetailDto } from 'src/app/models/userDetailDto';
+import { UserImageService } from 'src/app/services/user-image.service';
 @Component({
   selector: 'app-sidenav',
   templateUrl: './sidenav.component.html',
@@ -17,10 +20,12 @@ export class SidenavComponent implements OnInit {
   @ViewChild(MatSidenav)
   sidenav!: MatSidenav;
   deviceInfoFromStorage = localStorage.getItem('deviceInfo')
-
-  constructor(private observer:BreakpointObserver,private toastrService:ToastrService,public router:Router,private localStorageService:LocalStorageService) { }
+  user:UserDetailDto = new UserDetailDto();
+  constructor(private observer:BreakpointObserver,private toastrService:ToastrService,public router:Router,private localStorageService:LocalStorageService,
+    private userService:UserService,private userImageService:UserImageService) { }
 
   ngOnInit(): void {
+    this.getUserDetailDtoByUserId()
   }
   ngAfterViewInit(){
     this.observer
@@ -50,5 +55,13 @@ export class SidenavComponent implements OnInit {
   }
   scrollUp(){
     $("#matSidenav").scrollTop(0)
+  }
+  getUserDetailDtoByUserId(){
+    this.userService.getUserDetailDtoByUserId(parseInt(this.localStorageService.getItem("userId"))).subscribe(response=>{
+      this.user = response.data
+    })
+  }
+  getUserImagePath(imagePath:string){
+    return this.userImageService.getImagePath(imagePath);
   }
 }
