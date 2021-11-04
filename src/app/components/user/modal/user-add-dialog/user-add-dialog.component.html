@@ -82,7 +82,17 @@
         <input matInput readonly type="number" formControlName="restaurantId">
       </mat-form-field>
     </div>
+    <div class="form-group">
+      <mat-form-field appearance="outline">
+        <mat-label>Yetkiler</mat-label>
+        <mat-select  multiple  >
+          <mat-option  *ngFor="let operationClaim of operationClaims" (click)="addItemOperationClaimsToAdded(operationClaim.id)" [value]="operationClaim.id">{{operationClaim.name}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    
 </form>
+
 </mat-dialog-content>
 <mat-dialog-actions align="end">
   <button mat-button color="warn" mat-dialog-close>Vazgeç</button>

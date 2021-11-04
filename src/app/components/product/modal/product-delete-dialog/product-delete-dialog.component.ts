@@ -14,40 +14,19 @@ export class ProductDeleteDialogComponent implements OnInit {
 
   @Output() onDeleted = new EventEmitter();
 
-  constructor(public productDeleteDialogRef:MatDialogRef<ProductDeleteDialogComponent>, @Inject(MAT_DIALOG_DATA) public product: Product,
-  private productService:ProductService,private toastrService:ToastrService,private productImageService:ProductImageService) { }
+  constructor( @Inject(MAT_DIALOG_DATA) public product: Product,
+  private productService:ProductService,private toastrService:ToastrService) { }
 
   ngOnInit(): void {
   }
 
 
-  productDelete(product:Product){
-    if(product.productImagePath!=null){
-      console.log("init çalıştı")
-      console.log(product.productImageId)
-      let promise = new Promise((resolve,reject)=>{
-        this.productImageService.deleteProductImage(product.productImageId).subscribe(response=>{
-          resolve(response.message)
-        })
-      })
-      promise.then((success)=>{
-        this.productService.productDelete(product).subscribe(response=>{
-          this.toastrService.success(product.productName+" adlı ürün silindi.","Başarılı!")
-          this.onDeleted.emit()
-        },responseError=>{
-          this.toastrService.error(responseError.error,"Hata!")
-        })
-      })
-    }
-    else{
-      this.productService.productDelete(product).subscribe(response=>{
-        this.toastrService.success(product.productName+" adlı ürün silindi","Başarılı")
-        this.onDeleted.emit()
-      },responseError=>{
-        this.toastrService.error(responseError.error,"Hata!")
-      })
-    }
-    
-
+  deleteProduct(product:Product){
+    this.productService.productDelete(product).subscribe(response=>{
+      this.onDeleted.emit()
+      this.toastrService.success(product.productName+" adlı "+response.message.toLocaleLowerCase(),"Başarılı!")
+    },responseError=>{
+      this.toastrService.error(responseError.Error,"Hata!")
+    })
   }
 }

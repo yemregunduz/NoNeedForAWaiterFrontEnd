@@ -20,6 +20,12 @@ export class UserImageService {
     sendForm.append("userImage",file)
     return this.httpClient.post<ResponseModel>(newPath,sendForm);
   }
+  deleteUserImage(imageId:number){
+    let newPath = this.apiUrl+"delete"
+    const sendForm = new FormData();
+    sendForm.append("id",JSON.stringify(imageId))
+    return this.httpClient.post<ResponseModel>(newPath,sendForm);
+  }
   getAllUserImagesByUserId(userId:number){
     let newPath = this.apiUrl+"getalluserimagesbyuserid?userId="+userId
     return this.httpClient.get<ListResponseModel<UserImage>>(newPath)

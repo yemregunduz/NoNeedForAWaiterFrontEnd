@@ -93,7 +93,9 @@
                         <td (click)="openEmployeeUpdateDialog(formerEmployee)" >{{formerEmployee.title}}</td>
                         <td>
                             <mat-slide-toggle color="primary" (change)="updateUserStatus(formerEmployee)" ></mat-slide-toggle>
-                          
+                            <button mat-icon-button  (click)="openEmployeeDeleteDialog(formerEmployee)">
+                              <mat-icon style="margin-bottom: 5px;color: red;" >delete</mat-icon>
+                          </button>
                         </td>
                       </tr>
                     </tbody>

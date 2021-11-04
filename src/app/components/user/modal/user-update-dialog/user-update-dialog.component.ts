@@ -1,12 +1,20 @@
 import { Component, EventEmitter, Inject, Input, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
+import { Observable } from 'rxjs';
+import { startWith } from 'rxjs/operators';
+import { OperationClaim } from 'src/app/models/operationClaim';
 import { Title } from 'src/app/models/title';
 import { UserDetailDto } from 'src/app/models/userDetailDto';
 import { UserImage } from 'src/app/models/userImage';
+import { UserOperationClaim } from 'src/app/models/userOperationClaim';
+import { UserOperationClaimDetailDto } from 'src/app/models/UserOperationClaimDetailDto';
+
+import { OperationClaimService } from 'src/app/services/operation-claim.service';
 import { TitleService } from 'src/app/services/title.service';
 import { UserImageService } from 'src/app/services/user-image.service';
+import { UserOperationClaimService } from 'src/app/services/user-operation-claim.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -22,14 +30,21 @@ export class UserUpdateDialogComponent implements OnInit {
   userImageFile:File
   userImages:UserImage[]=[]
   imageId:number
+  operationClaims:OperationClaim[]
+  userOperationClaims:UserOperationClaimDetailDto[]
+  filteredOperationClaims : Observable<OperationClaim[]>
   @Output() onUpdated = new EventEmitter()
   constructor(private formBuilder:FormBuilder,@Inject(MAT_DIALOG_DATA) public employee:UserDetailDto,private titleService:TitleService,private userService:UserService,
-  private toastrService:ToastrService,private userImageService:UserImageService) { }
+  private toastrService:ToastrService,private userImageService:UserImageService,private userOperationClaimService:UserOperationClaimService,
+  private operationClaimService:OperationClaimService) { }
 
   ngOnInit(): void {
     this.getAllTitles()
     this.createUserUpdateForm();
     this.getUserImagesByUserId();
+    this.getAllOperationClaims();
+    this.getAllUserOperationClaimDetailsByUserId();
+    
   }
   createUserUpdateForm(){
     this.userUpdateForm = this.formBuilder.group({
@@ -113,5 +128,15 @@ export class UserUpdateDialogComponent implements OnInit {
   setUserImagePathAndImageFileToNull(){
     this.userImagePath = null;
     this.userImageFile = null;
+  }
+  getAllOperationClaims(){
+    this.operationClaimService.getAllOperationClaims().subscribe(response=>{
+      this.operationClaims = response.data
+    })
+  }
+  getAllUserOperationClaimDetailsByUserId(){
+    this.userOperationClaimService.getAllUserOperationClaimDetailsByUserId(this.employee.id).subscribe(response=>{
+      this.userOperationClaims = response.data
+    })
   }
 }

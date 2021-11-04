@@ -5,6 +5,7 @@ import { UserDetailDto } from 'src/app/models/userDetailDto';
 import { UserImageService } from 'src/app/services/user-image.service';
 import { UserService } from 'src/app/services/user.service';
 import { UserAddDialogComponent } from './modal/user-add-dialog/user-add-dialog.component';
+import { UserDeleteDialogComponent } from './modal/user-delete-dialog/user-delete-dialog.component';
 import { UserUpdateDialogComponent } from './modal/user-update-dialog/user-update-dialog.component';
 
 @Component({
@@ -80,6 +81,14 @@ export class UserComponent implements OnInit {
     employeeUpdateDialogRef.afterClosed().subscribe(event=>{
       employeeUpdateDialogRef.componentInstance.userImagePath = null
       employeeUpdateDialogRef.componentInstance.userImageFile = null 
+    })
+  }
+  openEmployeeDeleteDialog(formerEmployee:UserDetailDto){
+    const employeeDeleteDialogRef = this.dialog.open(UserDeleteDialogComponent,{
+      data:formerEmployee
+    })
+    employeeDeleteDialogRef.componentInstance.onDeleted.subscribe(response=>{
+      this.getAllFormerEmployees();
     })
   }
   getUserImagePath(userImagePath:string){

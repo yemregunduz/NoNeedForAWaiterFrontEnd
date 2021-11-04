@@ -5,6 +5,7 @@ import { delay } from 'rxjs/operators';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import $ from 'jquery'
+import { LocalStorageService } from 'src/app/services/local-storage.service';
 @Component({
   selector: 'app-sidenav',
   templateUrl: './sidenav.component.html',
@@ -17,7 +18,7 @@ export class SidenavComponent implements OnInit {
   sidenav!: MatSidenav;
   deviceInfoFromStorage = localStorage.getItem('deviceInfo')
 
-  constructor(private observer:BreakpointObserver,private toastrService:ToastrService,public router:Router) { }
+  constructor(private observer:BreakpointObserver,private toastrService:ToastrService,public router:Router,private localStorageService:LocalStorageService) { }
 
   ngOnInit(): void {
   }
@@ -36,7 +37,9 @@ export class SidenavComponent implements OnInit {
     });
   }
   logout(){
-    localStorage.clear()
+    this.localStorageService.remove("token")
+    this.localStorageService.remove("restaurantId")
+    this.localStorageService.remove("userId")
     this.router.navigate(["login"]);
     this.toastrService.success("Giriş sayfasına yönlendiriliyorsunuz.","Çıkış başarılı!")
   }

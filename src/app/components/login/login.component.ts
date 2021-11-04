@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { DeviceDetectorService, DeviceInfo } from 'ngx-device-detector';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/services/auth.service';
+import { LocalStorageService } from 'src/app/services/local-storage.service';
 
 @Component({
   selector: 'app-login',
@@ -14,12 +15,13 @@ export class LoginComponent implements OnInit {
 
   loginForm:FormGroup;
   deviceInfo:DeviceInfo = null;
-  constructor(private formBuilder:FormBuilder,private authService:AuthService,private toastrService:ToastrService,private router:Router,private deviceDetectorService:DeviceDetectorService) { }
+  constructor(private formBuilder:FormBuilder,private authService:AuthService,private toastrService:ToastrService,private router:Router,
+    private deviceDetectorService:DeviceDetectorService,private localStorageService:LocalStorageService) { }
 
   ngOnInit(): void {
     this.createLoginForm();
     this.deviceInfo = this.deviceDetectorService.getDeviceInfo()
-    localStorage.setItem('deviceInfo',this.deviceInfo.os)
+    this.localStorageService.add('deviceInfo',this.deviceInfo.os)
   }
 
   createLoginForm(){
@@ -32,9 +34,9 @@ export class LoginComponent implements OnInit {
     if(this.loginForm.valid){
       let loginModel = Object.assign({},this.loginForm.value)
       this.authService.login(loginModel).subscribe(response=>{
-        localStorage.setItem('token',response.data.token)
-        localStorage.setItem('restaurantId',response.data.restaurantId.toString())
-        localStorage.setItem('userId',response.data.userId.toString())
+        this.localStorageService.add('token',response.data.token)
+        this.localStorageService.add('restaurantId',response.data.restaurantId.toString())
+        this.localStorageService.add('userId',response.data.userId.toString())
         this.toastrService.success("Giriş başarılı!","Başarılı!")
         this.loginForm.reset()
         this.router.navigate(["mainpage"])

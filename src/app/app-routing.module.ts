@@ -7,10 +7,12 @@ import { ProductUpdateDialogComponent } from './components/product/modal/product
 import { ProductComponent } from './components/product/product.component';
 import { SidenavComponent } from './components/sidenav/sidenav.component';
 import { UserAddDialogComponent } from './components/user/modal/user-add-dialog/user-add-dialog.component';
+import { UserUpdateDialogComponent } from './components/user/modal/user-update-dialog/user-update-dialog.component';
 import { UserComponent } from './components/user/user.component';
 import { LoginGuard } from './guards/login.guard';
 
 const routes: Routes = [
+  {path:"",redirectTo:"/mainpage", pathMatch:"full"},
   {path:"mainpage",component:SidenavComponent,canActivate:[LoginGuard],children:[
     {path:"products",component:ProductComponent,children:[
       {path:"productadd",component:ProductAddDialogComponent},
@@ -18,7 +20,8 @@ const routes: Routes = [
       {path:"productupdate",component:ProductUpdateDialogComponent}
     ]},
     {path:"users",component:UserComponent,children:[
-      {path:"useradd",component:UserAddDialogComponent}
+      {path:"useradd",component:UserAddDialogComponent},
+      {path:"userupdate",component:UserUpdateDialogComponent}
     ]}
   ]},
   {path:"login",component:LoginComponent}

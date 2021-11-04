@@ -6,7 +6,7 @@
       <img class="avatar"  [src]="productImagePath" onclick="document.getElementById('fileToUpload').click()" style="cursor: pointer;"/>
     </div>
     <div class="form-group col-md-4" *ngIf="productImagePath==null">
-      <img class="avatar" src="assets/images/defaultprofileimage.jpg" onclick="document.getElementById('fileToUpload').click()" style="cursor:pointer" />
+      <img class="avatar" src="assets/images/defaultproductimage.png" onclick="document.getElementById('fileToUpload').click()" style="cursor:pointer" />
     </div>
     <input type="file" name="file" #fileInput id="fileToUpload" (change)="onChangeFileInput($event)" style="display: none;">
     <div class="form-group col-md-8">
