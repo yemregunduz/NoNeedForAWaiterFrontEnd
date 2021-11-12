@@ -3,7 +3,29 @@
         <div class="col-xl-12">
             <div class="card">
                 <div class="card-body">
-                    <button mat-raised-button color="primary" (click)="openProductAddDialog()">Ürün ekle</button>          
+                    <div class="row">
+                        <div class="col-md-3" >
+                            <button mat-raised-button color="primary"  style="width: 100%; margin-top: 8px;" (click)="openProductAddDialog()">Ürün ekle</button>
+                        </div>
+                        <div class="col-md-3">
+                            <form>
+                                <mat-form-field >
+                                <span matPrefix> </span>
+                                <input type="text"  matInput placeholder="Ürün ara" name= "search" [(ngModel)]= "filterText">
+                                <button matSuffix mat-button disabled><mat-icon >search</mat-icon></button>
+                                </mat-form-field>
+                            </form>
+                        </div>
+                    </div>
+                    
+                </div>
+                
+            </div>
+        </div>
+        <div class="col-xl-12">
+            <div class="card">
+                <div class="card-body">
+                              
                     <h2 class="header-title pb-3 mt-0" style="text-align: center;"><b>ÜRÜNLERİMİZ</b></h2>                    
                     <div class="table-responsive">
                         <table class="table table-hover mb-0">
@@ -19,7 +41,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr *ngFor="let product of products | paginate : { id :'listing_pagination', itemsPerPage:20, currentPage : page, totalItems: totalRecords} ;trackBy: trackByFn ">
+                                <tr #myvar *ngFor="let product of products | productFilterPipe:filterText | paginate : { id :'listing_pagination', itemsPerPage:20, currentPage : page, totalItems: totalRecords} ;trackBy: trackByFn ">
                                     <td style="width: 10%;" *ngIf="product.productImagePath!=null"><img [src]="getProductImagePath(product.productImagePath)" alt="" class="thumb-sm rounded-circle mr-2"></td>
                                     <td style="width: 10%;" *ngIf="product.productImagePath==null"><img src="/assets/images/defaultproductimage.png" alt="" class="thumb-sm rounded-circle mr-2"></td>
                                     <td style="width: 15%;">{{product.productName}}</td>

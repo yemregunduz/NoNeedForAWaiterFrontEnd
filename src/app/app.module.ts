@@ -59,6 +59,10 @@ import { UserAddDialogComponent } from './components/user/modal/user-add-dialog/
 import { UserUpdateDialogComponent } from './components/user/modal/user-update-dialog/user-update-dialog.component';
 import { SafeHtmlPipe } from './pipes/safe-html.pipe';
 import { UserDeleteDialogComponent } from './components/user/modal/user-delete-dialog/user-delete-dialog.component';
+import { UserFilterPipePipe } from './pipes/user-filter-pipe.pipe';
+import { ProductFilterPipePipe } from './pipes/product-filter-pipe.pipe';
+import { ProfileComponent } from './components/profile/profile.component';
+
 
 
 
@@ -77,6 +81,9 @@ import { UserDeleteDialogComponent } from './components/user/modal/user-delete-d
     UserUpdateDialogComponent,
     SafeHtmlPipe,
     UserDeleteDialogComponent,
+    UserFilterPipePipe,
+    ProductFilterPipePipe,
+    ProfileComponent,
   ],
   imports: [
     BrowserModule,

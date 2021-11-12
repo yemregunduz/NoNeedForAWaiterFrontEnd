@@ -5,6 +5,7 @@ import { ProductAddDialogComponent } from './components/product/modal/product-ad
 import { ProductDeleteDialogComponent } from './components/product/modal/product-delete-dialog/product-delete-dialog.component';
 import { ProductUpdateDialogComponent } from './components/product/modal/product-update-dialog/product-update-dialog.component';
 import { ProductComponent } from './components/product/product.component';
+import { ProfileComponent } from './components/profile/profile.component';
 import { SidenavComponent } from './components/sidenav/sidenav.component';
 import { UserAddDialogComponent } from './components/user/modal/user-add-dialog/user-add-dialog.component';
 import { UserUpdateDialogComponent } from './components/user/modal/user-update-dialog/user-update-dialog.component';
@@ -22,7 +23,8 @@ const routes: Routes = [
     {path:"users",component:UserComponent,children:[
       {path:"useradd",component:UserAddDialogComponent},
       {path:"userupdate",component:UserUpdateDialogComponent}
-    ]}
+    ]},
+    {path:"profile",component:ProfileComponent}
   ]},
   {path:"login",component:LoginComponent}
 ];

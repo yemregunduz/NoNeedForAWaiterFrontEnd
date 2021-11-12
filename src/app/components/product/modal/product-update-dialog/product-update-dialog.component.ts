@@ -19,7 +19,7 @@ export class ProductUpdateDialogComponent implements OnInit {
   
   categories:Category[]
   productUpdateForm:FormGroup
-  productImages: ProductImage[];
+  productImages: ProductImage[]=[];
   productImageFile:File
   productImagePath:string
   productImageId:number
@@ -70,6 +70,7 @@ export class ProductUpdateDialogComponent implements OnInit {
   getAllProductImagesByProductId(){
     this.productImageService.getAllProductsImageByProductId(this.product.id).subscribe(response=>{
       this.productImages = response.data;
+      if(response.data.length>0)
       this.productImageId = response.data[0].id
     })
   }

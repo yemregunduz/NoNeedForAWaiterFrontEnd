@@ -20,6 +20,7 @@ export class SidenavComponent implements OnInit {
   @ViewChild(MatSidenav)
   sidenav!: MatSidenav;
   deviceInfoFromStorage = localStorage.getItem('deviceInfo')
+  userId = this.localStorageService.getItem("userId");
   user:UserDetailDto = new UserDetailDto();
   constructor(private observer:BreakpointObserver,private toastrService:ToastrService,public router:Router,private localStorageService:LocalStorageService,
     private userService:UserService,private userImageService:UserImageService) { }

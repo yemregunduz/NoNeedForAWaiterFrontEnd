@@ -2,16 +2,25 @@
   <mat-tab label="ÇALIŞANLARIMIZ" >
     <div class="container" style="overflow-x: hidden;">
       <div class="row" style="margin-top: 2%">
+        <form>
+          <mat-form-field class="example-full-width">
+          <span matPrefix> </span>
+          <input type="text" matInput placeholder="Çalışan ara" name= "search" [(ngModel)]= "filterText">
+          <button matSuffix mat-button disabled><mat-icon >search</mat-icon></button>
+          </mat-form-field>
+        </form>  
         <div class="col-xl-12">
           <div class="card">
-            <button mat-raised-button color="primary" (click)="openEmployeeAddDialog()" style="width: 140px;margin:1%;align-items: center;">Yeni Çalışan Ekle</button>   
+            <button mat-raised-button color="primary" (click)="openEmployeeAddDialog()" style="width: 140px;margin:1%;align-items: center;">Yeni Çalışan Ekle</button> 
+            
             <div class="card-body">
               <div class="table-responsive">
                 <table class="table table-hover mb-0">
                   <thead>
                     <tr class="align-self-center">
                       <th style="width: 5%;"></th>
-                      <th>Ad</th>
+                      <th >Ad <mat-icon (click)="sortingEmployeesByFirstName()" *ngIf="sortingByFirstNameBefore==true" style="vertical-align: middle;cursor: pointer;">expand_less</mat-icon> 
+                              <mat-icon (click)="sortingEmployeesByFirstName()" *ngIf="sortingByFirstNameBefore==false" style="vertical-align: middle;cursor: pointer;">expand_more</mat-icon></th>
                       <th>Soyad</th>
                       <th>Email</th>
                       <th>Brüt Maaş</th>
@@ -20,7 +29,7 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr style="cursor: pointer;" *ngFor="let employee of employees | paginate : { id :'employeesListing', itemsPerPage:11, currentPage : pageOfEmployees, totalItems: totalRecordsOfEmployees} ;trackBy: trackByFn">
+                    <tr style="cursor: pointer;" *ngFor="let employee of employees | userFilterPipe:filterText | paginate : { id :'employeesListing', itemsPerPage:15, currentPage : pageOfEmployees, totalItems: totalRecordsOfEmployees} ;trackBy: trackByFn ">
                       <td *ngIf="employee.userImagePath!=null" (click)="openEmployeeUpdateDialog(employee)"><img
                         [src]="getUserImagePath(employee.userImagePath)"
                         alt=""
@@ -30,8 +39,8 @@
                         src="assets/images/defaultprofileimage.jpg"
                         alt=""
                         class="thumb-sm rounded-circle mr-2"
-                      /></td>
-                      <td (click)="openEmployeeUpdateDialog(employee)">{{employee.firstName}}</td>
+                      /></td>                    
+                      <td (click)="openEmployeeUpdateDialog(employee)" >{{employee.firstName}}</td>
                       <td (click)="openEmployeeUpdateDialog(employee)">{{employee.lastName}}</td>
                       <td (click)="openEmployeeUpdateDialog(employee)">{{employee.email}}</td>
                       <td (click)="openEmployeeUpdateDialog(employee)" *ngIf="employee.title!='İşletme Sahibi'">{{employee.salary}} ₺</td>
@@ -48,6 +57,7 @@
             </div>
           </div>
         </div>
+        
       </div>
       <div class="row">
         
@@ -58,6 +68,13 @@
   <mat-tab label="ESKİ ÇALIŞANLARIMIZ" >
     <div class="container">
         <div class="row" style="margin-top: 2%">
+          <form>
+            <mat-form-field class="example-full-width">
+            <span matPrefix> </span>
+            <input type="text" matInput placeholder="Çalışan ara" name= "search" [(ngModel)]= "filterText">
+            <button matSuffix mat-button disabled><mat-icon >search</mat-icon></button>
+            </mat-form-field>
+          </form> 
           <div class="col-xl-12">
             <div class="card">
               <div class="card-body">
@@ -75,7 +92,7 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <tr style="cursor: pointer;" *ngFor="let formerEmployee of formerEmployees | paginate : { id :'formerEmployeesListing', itemsPerPage:11, currentPage : pageOfFormerEmployees, totalItems: totalRecordsOfFormerEmployees};trackBy: trackByFn ">
+                      <tr style="cursor: pointer;" *ngFor="let formerEmployee of formerEmployees | userFilterPipe:filterText  | paginate : { id :'formerEmployeesListing', itemsPerPage:11, currentPage : pageOfFormerEmployees, totalItems: totalRecordsOfFormerEmployees};trackBy: trackByFn ">
                         <td *ngIf="formerEmployee.userImagePath!=null" (click)="openEmployeeUpdateDialog(formerEmployee)" ><img
                           [src]="getUserImagePath(formerEmployee.userImagePath)"
                           alt=""
@@ -114,3 +131,4 @@
   
   
 </mat-tab-group>
+

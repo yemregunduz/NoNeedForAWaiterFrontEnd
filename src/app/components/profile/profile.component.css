@@ -1,0 +1,20 @@
+::ng-deep.mat-tab-label, ::ng-deep.mat-tab-label-active{
+    padding: 3px!important;
+    margin: 3px!important;
+}
+body{
+    background:#f5f5f5;
+    margin-top:20px;
+}
+.card {
+    border: none;
+    -webkit-box-shadow: 1px 0 20px rgba(96,93,175,.05);
+    box-shadow: 1px 0 20px rgba(96,93,175,.05);
+    margin-bottom: 30px;
+}
+.avatar {
+    margin-top: 2px;
+    width: 80%;
+    height: 145px;
+    border-radius: 5%;
+}

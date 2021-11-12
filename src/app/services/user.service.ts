@@ -35,4 +35,8 @@ export class UserService {
     let newPath = this.apiUrl+"getuserdetaildtobyuserid?userId="+userId
     return this.httpClient.get<SingleResponseModel<UserDetailDto>>(newPath);
   }
+  getAllUsersByFilterText(filterText:string){
+    let newPath = this.apiUrl+"getallusersbyfiltertext?filterText="+filterText
+    return this.httpClient.get<ListResponseModel<UserDetailDto>>(newPath);
+  }
 } 

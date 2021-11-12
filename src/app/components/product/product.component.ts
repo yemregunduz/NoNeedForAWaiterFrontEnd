@@ -21,6 +21,7 @@ export class ProductComponent implements OnInit {
   totalRecords:number;
   products : Product[];
   restaurantIdFromStorage:number = parseInt(localStorage.getItem('restaurantId'))
+  filterText:string
   @Output() scrolled = new EventEmitter()
   constructor(private productService:ProductService,private toastrService:ToastrService,public dialog:MatDialog,private productImageService:ProductImageService) { }
 
@@ -36,7 +37,7 @@ export class ProductComponent implements OnInit {
   getAllProductDetailsDtoByRestaurantId(){
     this.productService.getAllProductDetailsDtoByRestaurantId(this.restaurantIdFromStorage).subscribe(response=>{
       this.products = response.data
-      this.totalRecords = response.data.length
+
       if(response.data.length%20 == 0){
         this.page = this.page-1;
       }

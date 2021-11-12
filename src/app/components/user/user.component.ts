@@ -23,6 +23,8 @@ export class UserComponent implements OnInit {
   pageOfEmployees:number=1
   totalRecordsOfFormerEmployees:number
   pageOfFormerEmployees:number=1
+  filterText:string
+  sortingByFirstNameBefore:boolean = false
   constructor(private userService:UserService,public dialog:MatDialog,private userImageService:UserImageService) { }
   restaurantIdFromStorage:number = parseInt(localStorage.getItem('restaurantId'))
   ngOnInit(): void {
@@ -32,7 +34,6 @@ export class UserComponent implements OnInit {
   getAllEmployees(){
     this.userService.getAllUserByRestaurantIdAndStatus(this.restaurantIdFromStorage,true).subscribe(response=>{
       this.employees = response.data
-      this.totalRecordsOfEmployees = response.data.length
       if(response.data.length%11==0){
         this.pageOfEmployees=this.pageOfEmployees-1;
       }
@@ -41,7 +42,6 @@ export class UserComponent implements OnInit {
   getAllFormerEmployees(){
     this.userService.getAllUserByRestaurantIdAndStatus(this.restaurantIdFromStorage,false).subscribe(response=>{
       this.formerEmployees = response.data
-      this.totalRecordsOfFormerEmployees = response.data.length
       if(response.data.length%11==0){
         this.pageOfFormerEmployees = this.pageOfFormerEmployees-1;
       }
@@ -49,9 +49,11 @@ export class UserComponent implements OnInit {
   }
   updateUserStatus(user:User){
     user.status = !user.status
+    this.sortingByFirstNameBefore=!this.sortingByFirstNameBefore
     this.userService.updateUserStatus(user).subscribe(response=>{
       this.getAllEmployees()
       this.getAllFormerEmployees()
+      this.sortingEmployeesByFirstName()
     })
   }
   onEmployeesPageChange(page:number){
@@ -96,5 +98,31 @@ export class UserComponent implements OnInit {
   }
   trackByFn(index: number, employee:UserDetailDto ): any {
     return employee.id;
+  }
+  sortingEmployeesByFirstName(){
+    if(this.sortingByFirstNameBefore==false){
+      this.sortingByFirstNameBefore = true
+      this.employees.sort((employee1,employee2)=>{
+        if(employee1.firstName.toLocaleLowerCase() > employee2.firstName.toLocaleLowerCase()){
+          return 1
+        }
+        if(employee1.firstName.toLocaleLowerCase() < employee2.firstName.toLocaleLowerCase()){
+          return -1
+        }
+        return 0;
+      })
+    }
+    else{
+      this.sortingByFirstNameBefore=false
+      this.employees.sort((employee1,employee2)=>{
+        if(employee1.firstName.toLocaleLowerCase() < employee2.firstName.toLocaleLowerCase()){
+          return 1
+        }
+        if(employee1.firstName.toLocaleLowerCase() > employee2.firstName.toLocaleLowerCase()){
+          return -1
+        }
+        return 0;
+      })
+    }
   }
 }

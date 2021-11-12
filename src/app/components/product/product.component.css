@@ -43,4 +43,7 @@ body{
 }
 .pagination-controls /deep/ .ngx-pagination .current {
     background: #0074D9;
-  }
+}
+.mat-form-field{
+    width: 100%;
+}
