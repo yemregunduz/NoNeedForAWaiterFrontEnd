@@ -2,18 +2,33 @@
   <mat-tab label="ÇALIŞANLARIMIZ" >
     <div class="container" style="overflow-x: hidden;">
       <div class="row" style="margin-top: 2%">
-        <form>
-          <mat-form-field class="example-full-width">
-          <span matPrefix> </span>
-          <input type="text" matInput placeholder="Çalışan ara" name= "search" [(ngModel)]= "filterText">
-          <button matSuffix mat-button disabled><mat-icon >search</mat-icon></button>
-          </mat-form-field>
-        </form>  
         <div class="col-xl-12">
           <div class="card">
-            <button mat-raised-button color="primary" (click)="openEmployeeAddDialog()" style="width: 140px;margin:1%;align-items: center;">Yeni Çalışan Ekle</button> 
+            <div class="card-body">
+              <div class="row">
+                <div class="form-group col-md-3">
+                  <button mat-raised-button color="primary" (click)="openEmployeeAddDialog()" style="width: 100%;margin-top: 8px;">Yeni Çalışan Ekle</button>
+                </div>
+                <div class="form-group col-md-3">
+                  <form>
+                    <mat-form-field style="width: 100%;" >
+                    <span matPrefix> </span>
+                    <input type="text" matInput placeholder="Çalışan ara" name= "search" [(ngModel)]= "filterText">
+                    <button matSuffix mat-button disabled><mat-icon >search</mat-icon></button>
+                    </mat-form-field>
+                  </form>  
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-xl-12">
+          <div class="card">
+             
             
             <div class="card-body">
+              <h2 class="header-title pb-3 mt-0" style="text-align: center;"><b>ÇALIŞANLARIMIZ</b></h2>  
               <div class="table-responsive">
                 <table class="table table-hover mb-0">
                   <thead>
@@ -68,16 +83,27 @@
   <mat-tab label="ESKİ ÇALIŞANLARIMIZ" >
     <div class="container">
         <div class="row" style="margin-top: 2%">
-          <form>
-            <mat-form-field class="example-full-width">
-            <span matPrefix> </span>
-            <input type="text" matInput placeholder="Çalışan ara" name= "search" [(ngModel)]= "filterText">
-            <button matSuffix mat-button disabled><mat-icon >search</mat-icon></button>
-            </mat-form-field>
-          </form> 
           <div class="col-xl-12">
             <div class="card">
               <div class="card-body">
+                <div class="row">
+                  <div class="form-group col-md-3">
+                    <form>
+                      <mat-form-field style="width: 100%;" >
+                      <span matPrefix> </span>
+                      <input type="text" matInput placeholder="Çalışan ara" name= "search" [(ngModel)]= "filterText">
+                      <button matSuffix mat-button disabled><mat-icon >search</mat-icon></button>
+                      </mat-form-field>
+                    </form>  
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-xl-12">
+            <div class="card">
+              <div class="card-body">
+                <h2 class="header-title pb-3 mt-0" style="text-align: center;"><b>ESKİ ÇALIŞANLARIMIZ</b></h2>  
                 <div class="table-responsive" style="margin-top: 3%;">
                   <table class="table table-hover mb-0">
                     <thead>

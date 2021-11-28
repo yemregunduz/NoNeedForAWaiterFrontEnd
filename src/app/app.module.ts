@@ -39,7 +39,7 @@ import {CdkAccordionModule} from '@angular/cdk/accordion';
 import {CdkTreeModule} from '@angular/cdk/tree';
 import {MatTreeModule} from '@angular/material/tree';
 import {NgxPaginationModule} from 'ngx-pagination'
-
+import { MAT_DATE_LOCALE } from '@angular/material/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -62,6 +62,7 @@ import { UserDeleteDialogComponent } from './components/user/modal/user-delete-d
 import { UserFilterPipePipe } from './pipes/user-filter-pipe.pipe';
 import { ProductFilterPipePipe } from './pipes/product-filter-pipe.pipe';
 import { ProfileComponent } from './components/profile/profile.component';
+import { DateFormatPipe } from './pipes/date-format.pipe';
 
 
 
@@ -84,6 +85,7 @@ import { ProfileComponent } from './components/profile/profile.component';
     UserFilterPipePipe,
     ProductFilterPipePipe,
     ProfileComponent,
+    DateFormatPipe,
   ],
   imports: [
     BrowserModule,
@@ -135,7 +137,8 @@ import { ProfileComponent } from './components/profile/profile.component';
     NgbModule
   ],
   providers: [
-    {provide:HTTP_INTERCEPTORS,useClass:AuthInterceptor,multi:true}
+    {provide:HTTP_INTERCEPTORS,useClass:AuthInterceptor,multi:true},
+    { provide: MAT_DATE_LOCALE, useValue: 'tr-TR' }
   ],
   bootstrap: [AppComponent]
 })

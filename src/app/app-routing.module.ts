@@ -10,6 +10,7 @@ import { SidenavComponent } from './components/sidenav/sidenav.component';
 import { UserAddDialogComponent } from './components/user/modal/user-add-dialog/user-add-dialog.component';
 import { UserUpdateDialogComponent } from './components/user/modal/user-update-dialog/user-update-dialog.component';
 import { UserComponent } from './components/user/user.component';
+import { AuthGuard } from './guards/auth.guard';
 import { LoginGuard } from './guards/login.guard';
 
 const routes: Routes = [
@@ -20,7 +21,7 @@ const routes: Routes = [
       {path:"productdelete",component:ProductDeleteDialogComponent},
       {path:"productupdate",component:ProductUpdateDialogComponent}
     ]},
-    {path:"users",component:UserComponent,children:[
+    {path:"users",component:UserComponent,canActivate:[AuthGuard], children:[
       {path:"useradd",component:UserAddDialogComponent},
       {path:"userupdate",component:UserUpdateDialogComponent}
     ]},

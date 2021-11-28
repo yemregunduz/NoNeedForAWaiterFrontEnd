@@ -7,7 +7,7 @@
             close
         </mat-icon>
     </button>
-    Restoran Adı
+    {{user.restaurantName}}
 </mat-toolbar>
 
 <mat-sidenav-container style="background-color: #DDDDDD">
@@ -27,7 +27,7 @@
             <mat-icon class="menu-icon" >shopping_cart</mat-icon>
             <span>Ürünler</span>
         </button>
-        <button mat-button class="menu-button" routerLink="/mainpage/users" (click)="closeSidenavAfterClick()">
+        <button mat-button class="menu-button" routerLink="/mainpage/users" (click)="closeSidenavAfterClick()" >
             <mat-icon class="menu-icon">people</mat-icon>
             <span>Çalışanlarım</span>
         </button>
@@ -53,7 +53,7 @@
             <app-user (scrolled)="scrollUp()"></app-user>
         </div>
         <div class="container" *ngIf="router.url.includes('/mainpage/profile')">
-            <app-profile></app-profile>
+            <app-profile (onUpdated)="getUserDetailDtoByUserId()"></app-profile>
         </div>
     </mat-sidenav-content>
 </mat-sidenav-container>

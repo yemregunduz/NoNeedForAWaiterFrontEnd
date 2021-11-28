@@ -65,11 +65,12 @@ export class UserUpdateDialogComponent implements OnInit {
       this.titles = response.data
     })
   }
-  updateUserWithoutPassword(employee:UserDetailDto){
+  updateUser(employee:UserDetailDto){
     if(this.userUpdateForm.valid){
       if(this.userUpdateForm.dirty){
+        console.log(this.userUpdateForm)
         employee = Object.assign({},this.userUpdateForm.value)
-        this.userService.updateUserWithoutPassword(employee).subscribe(response=>{
+        this.userService.updateUser(employee).subscribe(response=>{
           this.onUpdated.emit()
           this.toastrService.success(response.message,"Başarılı!")
         },responseError=>{
@@ -107,6 +108,7 @@ export class UserUpdateDialogComponent implements OnInit {
       this.userImageService.updateUserImage(this.userImageFile,this.imageId).subscribe(response=>{
           this.onUpdated.emit()
           this.setUserImagePathAndImageFileToNull()
+          this.getUserImagesByUserId();
           this.toastrService.success(response.message,"Başarılı!")
       },responseError=>{
         this.toastrService.error(responseError.error,"Kullanıcı fotoğrafı güncellenemedi!")

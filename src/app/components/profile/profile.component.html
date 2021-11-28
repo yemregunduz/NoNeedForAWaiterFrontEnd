@@ -1,239 +1,526 @@
 <mat-tab-group style="margin-top: 2%; margin-left: 2%">
   <mat-tab label="KİŞİSEL BİLGİLER">
     <div class="container" style="overflow-x: hidden">
-      <div class="card" style="margin-top: 2%">
-        <div class="card-body">
-          <form
-            class="needs-validation"
-            [formGroup]="userUpdateForm"
-            novalidate=""
-          >
-            <div class="form-row">
-              <div
-                class="form-group col-md-4"
-                *ngIf="userImages.length != 0 && userImagePath == null"
+      <div class="row" style="margin-top: 2%">
+        <div class="col-xl-12">
+          <div class="card" style="margin-top: 2%">
+            <div class="card-body" style="margin-top: 2%">
+              <form
+                class="needs-validation"
+                [formGroup]="userUpdateForm"
+                novalidate=""
               >
-                <img
-                  class="avatar"
-                  *ngFor="let userImage of userImages"
-                  style="cursor: pointer"
-                  onclick="document.getElementById('fileToUpload').click()"
-                  [src]="getUserImagePath(userImage.userImagePath)"
-                />
-              </div>
+                <div class="form-row">
+                  <div
+                    class="form-group col-md-4"
+                    *ngIf="userImages.length != 0 && userImagePath == null"
+                  >
+                    <img
+                      class="avatar"
+                      *ngFor="let userImage of userImages"
+                      style="cursor: pointer"
+                      onclick="document.getElementById('fileToUpload').click()"
+                      [src]="getUserImagePath(userImage.userImagePath)"
+                    />
+                  </div>
 
-              <div
-                class="form-group col-md-4"
-                *ngIf="userImages.length == 0 && userImagePath == null"
-              >
-                <img
-                  class="avatar"
-                  src="assets/images/defaultprofileimage.jpg"
-                  style="cursor: pointer"
-                  onclick="document.getElementById('fileToUpload').click()"
-                />
-              </div>
-              <div class="form-group col-md-4" *ngIf="userImagePath != null">
-                <img
-                  class="avatar"
-                  style="cursor: pointer"
-                  onclick="document.getElementById('fileToUpload').click()"
-                  [src]="userImagePath"
-                />
-              </div>
-              <input
-                type="file"
-                name="file"
-                #fileInput
-                id="fileToUpload"
-                (change)="onChangeFileInput($event)"
-                style="display: none"
-              />
-              <div class="form-group col-md-8">
-                <div class="form-group">
-                  <mat-form-field appearance="outline">
-                    <mat-label>Ad</mat-label>
-                    <input
-                      matInput
-                      type="text"
-                      disableOptionCentering
-                      required
-                      formControlName="firstName"
-                      placeholder="Ad"
+                  <div
+                    class="form-group col-md-4"
+                    *ngIf="userImages.length == 0 && userImagePath == null"
+                  >
+                    <img
+                      class="avatar"
+                      src="assets/images/defaultprofileimage.jpg"
+                      style="cursor: pointer"
+                      onclick="document.getElementById('fileToUpload').click()"
                     />
-                    <mat-icon
-                      *ngIf="
-                        userUpdateForm.controls['firstName'].valid &&
-                        userUpdateForm.controls['firstName'].touched
-                      "
-                      style="color: seagreen"
-                      matSuffix
-                      >sentiment_very_satisfied</mat-icon
-                    >
-                    <mat-icon
-                      *ngIf="
-                        userUpdateForm.controls['firstName'].invalid &&
-                        userUpdateForm.controls['firstName'].touched
-                      "
-                      style="color: red"
-                      matSuffix
-                      >sentiment_very_dissatisfied</mat-icon
-                    >
-                    <mat-hint
-                      style="color: red"
-                      *ngIf="
-                        userUpdateForm.controls['firstName'].invalid &&
-                        userUpdateForm.controls['firstName'].touched
-                      "
-                      >Ad en az 2 en fazla 50 karakter olmalıdır.</mat-hint
-                    >
-                  </mat-form-field>
-                </div>
-                <div class="form-group">
-                  <mat-form-field appearance="outline">
-                    <mat-label>Soyad</mat-label>
-                    <input
-                      matInput
-                      type="text"
-                      disableOptionCentering
-                      required
-                      formControlName="lastName"
-                      placeholder="Soyad"
+                  </div>
+                  <div
+                    class="form-group col-md-4"
+                    *ngIf="userImagePath != null"
+                  >
+                    <img
+                      class="avatar"
+                      style="cursor: pointer"
+                      onclick="document.getElementById('fileToUpload').click()"
+                      [src]="userImagePath"
                     />
-                    <mat-icon
-                      *ngIf="
-                        userUpdateForm.controls['lastName'].valid &&
-                        userUpdateForm.controls['lastName'].touched
-                      "
-                      style="color: seagreen"
-                      matSuffix
-                      >sentiment_very_satisfied</mat-icon
-                    >
-                    <mat-icon
-                      *ngIf="
-                        userUpdateForm.controls['lastName'].invalid &&
-                        userUpdateForm.controls['lastName'].touched
-                      "
-                      style="color: red"
-                      matSuffix
-                      >sentiment_very_dissatisfied</mat-icon
-                    >
-                    <mat-hint
-                      style="color: red"
-                      *ngIf="
-                        userUpdateForm.controls['lastName'].invalid &&
-                        userUpdateForm.controls['lastName'].touched
-                      "
-                      >Soyad en az 2 en fazla 50 karakter olmalıdır.</mat-hint
-                    >
-                  </mat-form-field>
-                </div>
-              </div>
-            </div>
-            <div class="form-group">
-              <mat-form-field appearance="outline" style="width: 80%">
-                <mat-label>Email</mat-label>
-                <input
-                  matInput
-                  type="text"
-                  disableOptionCentering
-                  required
-                  formControlName="email"
-                  placeholder="Email"
-                />
-                <mat-icon
-                  *ngIf="
-                    userUpdateForm.controls['email'].valid &&
-                    userUpdateForm.controls['email'].touched
-                  "
-                  style="color: seagreen"
-                  matSuffix
-                  >sentiment_very_satisfied</mat-icon
-                >
-                <mat-icon
-                  *ngIf="
-                    userUpdateForm.controls['email'].invalid &&
-                    userUpdateForm.controls['email'].touched
-                  "
-                  style="color: red"
-                  matSuffix
-                  >sentiment_very_dissatisfied</mat-icon
-                >
-                <mat-hint
-                  style="color: red"
-                  *ngIf="
-                    userUpdateForm.controls['email'].invalid &&
-                    userUpdateForm.controls['email'].touched
-                  "
-                  >Geçerli bir mail adresi giriniz.</mat-hint
-                >
-              </mat-form-field>
-            </div>
-            <div class="form-row">
-              <div class="form-group col-md-6">
-                <mat-form-field appearance="outline">
-                  <mat-label>Maaş(Aylık)</mat-label>
+                  </div>
                   <input
-                    matInput readonly
-                    type="number"
-                    disableOptionCentering
-                    required
-                    formControlName="salary"
-                    placeholder="Maaş bilgisi giriniz."
+                    type="file"
+                    name="file"
+                    #fileInput
+                    id="fileToUpload"
+                    (change)="onChangeFileInput($event)"
+                    style="display: none"
                   />
-                  <mat-icon
-                    *ngIf="
-                      userUpdateForm.controls['salary'].valid &&
-                      userUpdateForm.controls['salary'].touched
-                    "
-                    style="color: seagreen"
-                    matSuffix
-                    >sentiment_very_satisfied</mat-icon
+                  <div class="form-group col-md-8">
+                    <div class="form-row">
+                      <div class="form-group col-md-6">
+                        <div class="form-group">
+                          <mat-form-field
+                            appearance="outline"
+                            style="width: 100%; float: left"
+                          >
+                            <mat-label>Ad</mat-label>
+                            <input
+                              matInput
+                              type="text"
+                              disableOptionCentering
+                              required
+                              formControlName="firstName"
+                              placeholder="Ad"
+                            />
+                            <mat-icon
+                              *ngIf="
+                                userUpdateForm.controls['firstName'].valid &&
+                                userUpdateForm.controls['firstName'].touched
+                              "
+                              style="color: seagreen"
+                              matSuffix
+                              >sentiment_very_satisfied</mat-icon
+                            >
+                            <mat-icon
+                              *ngIf="
+                                userUpdateForm.controls['firstName'].invalid &&
+                                userUpdateForm.controls['firstName'].touched
+                              "
+                              style="color: red"
+                              matSuffix
+                              >sentiment_very_dissatisfied</mat-icon
+                            >
+                            <mat-hint
+                              style="color: red"
+                              *ngIf="
+                                userUpdateForm.controls['firstName'].invalid &&
+                                userUpdateForm.controls['firstName'].touched
+                              "
+                              >Ad en az 2 en fazla 50 karakter
+                              olmalıdır.</mat-hint
+                            >
+                          </mat-form-field>
+                        </div>
+                      </div>
+                      <div class="form-group col-md-6">
+                        <div class="form-group">
+                          <mat-form-field
+                            appearance="outline"
+                            style="width: 100%; float: left"
+                          >
+                            <mat-label>Soyad</mat-label>
+                            <input
+                              matInput
+                              type="text"
+                              disableOptionCentering
+                              required
+                              formControlName="lastName"
+                              placeholder="Soyad"
+                            />
+                            <mat-icon
+                              *ngIf="
+                                userUpdateForm.controls['lastName'].valid &&
+                                userUpdateForm.controls['lastName'].touched
+                              "
+                              style="color: seagreen"
+                              matSuffix
+                              >sentiment_very_satisfied</mat-icon
+                            >
+                            <mat-icon
+                              *ngIf="
+                                userUpdateForm.controls['lastName'].invalid &&
+                                userUpdateForm.controls['lastName'].touched
+                              "
+                              style="color: red"
+                              matSuffix
+                              >sentiment_very_dissatisfied</mat-icon
+                            >
+                            <mat-hint
+                              style="color: red"
+                              *ngIf="
+                                userUpdateForm.controls['lastName'].invalid &&
+                                userUpdateForm.controls['lastName'].touched
+                              "
+                              >Soyad en az 2 en fazla 50 karakter
+                              olmalıdır.</mat-hint
+                            >
+                          </mat-form-field>
+                        </div>
+                      </div>
+                      <div class="form-group col-md-12">
+                        <div class="form-row">
+                          <div class="form-group col-md-6">
+                            <div class="form-group">
+                              <mat-form-field
+                                appearance="outline"
+                                style="width: 100%; float: left"
+                              >
+                                <mat-label>Tc Kimlik Numarası</mat-label>
+                                <input
+                                  (keypress)="numberOnly($event)"
+                                  matInput
+                                  type="text"
+                                  maxlength="11"
+                                  disableOptionCentering
+                                  required
+                                  formControlName="tcNo"
+                                  placeholder="TC kimlik numaranızı giriniz."
+                                />
+                                <mat-icon
+                                  *ngIf="
+                                    userUpdateForm.controls['tcNo'].valid &&
+                                    userUpdateForm.controls['tcNo'].touched
+                                  "
+                                  style="color: seagreen"
+                                  matSuffix
+                                  >sentiment_very_satisfied</mat-icon
+                                >
+                                <mat-icon
+                                  *ngIf="
+                                    userUpdateForm.controls['tcNo'].invalid &&
+                                    userUpdateForm.controls['tcNo'].touched
+                                  "
+                                  style="color: red"
+                                  matSuffix
+                                  >sentiment_very_dissatisfied</mat-icon
+                                >
+                                <mat-hint
+                                  style="color: red"
+                                  *ngIf="
+                                    userUpdateForm.controls['tcNo'].invalid &&
+                                    userUpdateForm.controls['tcNo'].touched
+                                  "
+                                  >Tc Kimlik Numarası 11 haneden
+                                  oluşmalıdır.</mat-hint
+                                >
+                              </mat-form-field>
+                            </div>
+                          </div>
+                          <div class="form-group col-md-6">
+                            <div class="form-group">
+                              <mat-form-field
+                                appearance="outline"
+                                style="width: 100%; float: left"
+                              >
+                                <mat-label>Doğum Tarihi</mat-label>
+                                <input
+                                  placeholder="Doğum tarihinizi seçiniz."
+                                  matInput
+                                  readonly
+                                  [matDatepicker]="dateOfBirthPicker"
+                                  [(ngModel)]="dateOfBirth"
+                                  formControlName="dateOfBirth"
+                                  required
+                                />
+                                <mat-datepicker-toggle
+                                  matSuffix
+                                  [for]="dateOfBirthPicker"
+                                ></mat-datepicker-toggle>
+                                <mat-datepicker
+                                  #dateOfBirthPicker
+                                ></mat-datepicker>
+
+                                <mat-hint
+                                  style="color: red"
+                                  *ngIf="
+                                    userUpdateForm.controls['dateOfBirth']
+                                      .invalid &&
+                                    userUpdateForm.controls['dateOfBirth']
+                                      .touched
+                                  "
+                                  >Doğum tarihi seçilmelidir.
+                                </mat-hint>
+                              </mat-form-field>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group col-md-12">
+                        <div class="form-row">
+                          <div class="form-group col-md-6">
+                            <div class="form-group">
+                              <mat-form-field
+                                appearance="outline"
+                                style="width: 100%; float: left"
+                              >
+                                <mat-label>Cep Telefonu</mat-label>
+                                <input
+                                  id="mobilePhoneNumber"
+                                  matInput
+                                  (keypress)="numberOnly($event)"
+                                  type="text"
+                                  maxlength="11"
+                                  disableOptionCentering
+                                  required
+                                  formControlName="mobilePhoneNumber"
+                                  placeholder="Cep numarası"
+                                />
+                                <mat-icon
+                                  *ngIf="
+                                    userUpdateForm.controls['mobilePhoneNumber']
+                                      .valid &&
+                                    userUpdateForm.controls['mobilePhoneNumber']
+                                      .touched
+                                  "
+                                  style="color: seagreen"
+                                  matSuffix
+                                  >sentiment_very_satisfied</mat-icon
+                                >
+                                <mat-icon
+                                  *ngIf="
+                                    userUpdateForm.controls['mobilePhoneNumber']
+                                      .invalid &&
+                                    userUpdateForm.controls['mobilePhoneNumber']
+                                      .touched
+                                  "
+                                  style="color: red"
+                                  matSuffix
+                                  >sentiment_very_dissatisfied</mat-icon
+                                >
+                                <mat-hint
+                                  style="color: red"
+                                  *ngIf="
+                                    userUpdateForm.controls['mobilePhoneNumber']
+                                      .invalid &&
+                                    userUpdateForm.controls['mobilePhoneNumber']
+                                      .touched
+                                  "
+                                  >Cep telefonunuzu başında 0 olacak şekilde
+                                  giriniz.</mat-hint
+                                >
+                              </mat-form-field>
+                            </div>
+                          </div>
+                          <div class="form-group col-md-6">
+                            <div class="form-group">
+                              <mat-form-field
+                                appearance="outline"
+                                style="width: 100%; float: left"
+                              >
+                                <mat-label>Sabit Telefon</mat-label>
+                                <input
+                                  (keypress)="numberOnly($event)"
+                                  matInput
+                                  type="text"
+                                  maxlength="11"
+                                  disableOptionCentering
+                                  formControlName="fixedPhoneNumber"
+                                  placeholder="Sabit hat numarası"
+                                />
+                                <mat-icon
+                                  *ngIf="
+                                    userUpdateForm.controls['fixedPhoneNumber']
+                                      .valid &&
+                                    userUpdateForm.controls['fixedPhoneNumber']
+                                      .touched
+                                  "
+                                  style="color: seagreen"
+                                  matSuffix
+                                  >sentiment_very_satisfied</mat-icon
+                                >
+                                <mat-icon
+                                  *ngIf="
+                                    userUpdateForm.controls['fixedPhoneNumber']
+                                      .invalid &&
+                                    userUpdateForm.controls['fixedPhoneNumber']
+                                      .touched
+                                  "
+                                  style="color: red"
+                                  matSuffix
+                                  >sentiment_very_dissatisfied</mat-icon
+                                >
+                                <mat-hint
+                                  style="color: red"
+                                  *ngIf="
+                                    userUpdateForm.controls['fixedPhoneNumber']
+                                      .invalid &&
+                                    userUpdateForm.controls['fixedPhoneNumber']
+                                      .touched
+                                  "
+                                  >Sabit telefon numarası alan kodu ile birlikte
+                                  11 haneli olmalıdır.</mat-hint
+                                >
+                              </mat-form-field>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="form-group col-md-6" *ngIf="user.titleId != 1">
+                    <div class="form-group">
+                      <mat-form-field
+                        appearance="outline"
+                        style="width: 100%; float: left"
+                      >
+                        <mat-label>İşe Giriş Tarihi</mat-label>
+                        <input
+                          matInput
+                          readonly
+                          [matDatepicker]="dateOfRecruitmentPicker"
+                          [(ngModel)]="dateOfRecruitment"
+                          formControlName="dateOfRecruitment"
+                        />
+                        <mat-datepicker-toggle
+                          matSuffix
+                          [for]="dateOfRecruitmentPicker"
+                        ></mat-datepicker-toggle>
+                        <mat-datepicker
+                          #dateOfRecruitmentPicker
+                          style="background-color: red;"
+                        ></mat-datepicker>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="form-group col-md-6" *ngIf="user.titleId != 1">
+                    <div class="form-group">
+                      <mat-form-field
+                        appearance="outline"
+                        style="width: 100%; float: left"
+                      >
+                        <mat-label>İşten Çıkarılma Tarihi</mat-label>
+                        <input
+                          matInput
+                          readonly
+                          [matDatepicker]="dateOfDismissalPicker"
+                          [(ngModel)]="dateOfDismissal"
+                          formControlName="dateOfDismissal"
+                        />
+                        <mat-datepicker-toggle
+                          matSuffix
+                          [for]="dateOfDismissalPicker"
+                        ></mat-datepicker-toggle>
+                        <mat-datepicker #dateOfDismissalPicker></mat-datepicker>
+
+                        <mat-hint
+                          style="color: red"
+                          *ngIf="
+                            userUpdateForm.controls['dateOfDismissal']
+                              .invalid &&
+                            userUpdateForm.controls['dateOfDismissal'].touched
+                          "
+                          >Doğum tarihi seçilmelidir.
+                        </mat-hint>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <mat-form-field
+                    appearance="outline"
+                    style="width: 100%; float: left"
                   >
-                  <mat-icon
-                    *ngIf="
-                      userUpdateForm.controls['salary'].invalid &&
-                      userUpdateForm.controls['salary'].touched
-                    "
-                    style="color: red"
-                    matSuffix
-                    >sentiment_very_dissatisfied</mat-icon
-                  >
-                  <mat-hint
-                    style="color: red"
-                    *ngIf="
-                      userUpdateForm.controls['salary'].invalid &&
-                      userUpdateForm.controls['salary'].touched
-                    "
-                    >Maaş bilgisi girilmelidir.</mat-hint
-                  >
-                </mat-form-field>
-              </div>
+                    <mat-label>Email</mat-label>
+                    <input
+                      matInput
+                      type="text"
+                      disableOptionCentering
+                      required
+                      formControlName="email"
+                      placeholder="Email"
+                    />
+                    <mat-icon
+                      *ngIf="
+                        userUpdateForm.controls['email'].valid &&
+                        userUpdateForm.controls['email'].touched
+                      "
+                      style="color: seagreen"
+                      matSuffix
+                      >sentiment_very_satisfied</mat-icon
+                    >
+                    <mat-icon
+                      *ngIf="
+                        userUpdateForm.controls['email'].invalid &&
+                        userUpdateForm.controls['email'].touched
+                      "
+                      style="color: red"
+                      matSuffix
+                      >sentiment_very_dissatisfied</mat-icon
+                    >
+                    <mat-hint
+                      style="color: red"
+                      *ngIf="
+                        userUpdateForm.controls['email'].invalid &&
+                        userUpdateForm.controls['email'].touched
+                      "
+                      >Geçerli bir mail adresi giriniz.</mat-hint
+                    >
+                  </mat-form-field>
+                </div>
+                <div class="form-row" *ngIf="user.titleId != 1">
+                  <div class="form-group col-md-6">
+                    <mat-form-field appearance="outline">
+                      <mat-label>Maaş(Aylık)</mat-label>
+                      <input
+                        matInput
+                        readonly
+                        type="number"
+                        disableOptionCentering
+                        formControlName="salary"
+                        placeholder="Maaş bilgisi giriniz."
+                      />
+                      <mat-icon
+                        *ngIf="
+                          userUpdateForm.controls['salary'].valid &&
+                          userUpdateForm.controls['salary'].touched
+                        "
+                        style="color: seagreen"
+                        matSuffix
+                        >sentiment_very_satisfied</mat-icon
+                      >
+                      <mat-icon
+                        *ngIf="
+                          userUpdateForm.controls['salary'].invalid &&
+                          userUpdateForm.controls['salary'].touched
+                        "
+                        style="color: red"
+                        matSuffix
+                        >sentiment_very_dissatisfied</mat-icon
+                      >
+                      <mat-hint
+                        style="color: red"
+                        *ngIf="
+                          userUpdateForm.controls['salary'].invalid &&
+                          userUpdateForm.controls['salary'].touched
+                        "
+                        >Maaş bilgisi girilmelidir.</mat-hint
+                      >
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div
+                  class="form-group col-md-2"
+                  style="visibility: hidden; display: none"
+                >
+                  <mat-form-field appearance="outline">
+                    <mat-label>Restaurant Id</mat-label>
+                    <input
+                      matInput
+                      readonly
+                      type="number"
+                      formControlName="restaurantId"
+                    />
+                  </mat-form-field>
+                </div>
+                <div
+                  class="form-group col-md-2"
+                  style="visibility: hidden; display: none"
+                >
+                  <mat-form-field appearance="outline">
+                    <mat-label>User Id </mat-label>
+                    <input
+                      matInput
+                      readonly
+                      type="number"
+                      formControlName="id"
+                    />
+                  </mat-form-field>
+                </div>
+                <button mat-stroked-button color="success" style="float: right;" (click)="updateUser(user)" (click)="updateUserImage()">Bilgileri güncelle</button>
+              </form>
             </div>
-            <div
-              class="form-group col-md-2"
-              style="visibility: hidden; display: none"
-            >
-              <mat-form-field appearance="outline">
-                <mat-label>Restaurant Id</mat-label>
-                <input
-                  matInput
-                  readonly
-                  type="number"
-                  formControlName="restaurantId"
-                />
-              </mat-form-field>
-            </div>
-            <div
-              class="form-group col-md-2"
-              style="visibility: hidden; display: none"
-            >
-              <mat-form-field appearance="outline">
-                <mat-label>User Id </mat-label>
-                <input matInput readonly type="number" formControlName="id" />
-              </mat-form-field>
-            </div>
-          </form>
+          </div>
         </div>
       </div>
     </div>

@@ -15,7 +15,7 @@
         <input type="file" name="file" #fileInput id="fileToUpload" (change)="onChangeFileInput($event)" style="display: none;">
         <div class="form-group col-md-8"> 
           <div class="form-group ">
-            <mat-form-field appearance="outline">
+            <mat-form-field appearance="outline" style="width: 100%">
               <mat-label>Ürün Adı</mat-label>
               <input matInput type="text" disableOptionCentering   required formControlName="productName" placeholder="Ürün adı giriniz">
               <mat-icon *ngIf="productUpdateForm.controls['productName'].valid && productUpdateForm.controls['productName'].touched " style="color: seagreen;" matSuffix>sentiment_very_satisfied</mat-icon>
@@ -58,7 +58,7 @@
           </mat-form-field>
         </div>
         <div class="form-group col-md-6">
-          <mat-form-field appearance="outline">
+          <mat-form-field appearance="outline" style="width: 100%">
             <mat-label>Stok</mat-label>
             <input matInput type="number" disableOptionCentering   required formControlName="stock" placeholder="Stok adeti giriniz.">
             <mat-icon *ngIf="productUpdateForm.controls['stock'].valid && productUpdateForm.controls['stock'].touched " style="color: seagreen;" matSuffix>sentiment_very_satisfied</mat-icon>

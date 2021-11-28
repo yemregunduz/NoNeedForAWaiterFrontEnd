@@ -18,17 +18,12 @@ export class UserService {
     let newPath = this.apiUrl+"getallusersbyrestaurantidandstatus?restaurantId="+restaurantId+"&status="+status
     return this.httpClient.get<ListResponseModel<UserDetailDto>>(newPath);
   }
-  
-  updateUserStatus(user:any){
-    let newPath = this.apiUrl+"updateuserstatus"
-    return this.httpClient.post<ResponseModel>(newPath,user);
-  }
   deleteUser(user:User){
     let newPath = this.apiUrl+"delete"
     return this.httpClient.post<ResponseModel>(newPath,user);
   }
-  updateUserWithoutPassword(employee:UserDetailDto){
-    let newPath = this.apiUrl+"updateuserwithoutpassword"
+  updateUser(employee:UserDetailDto){
+    let newPath = this.apiUrl+"update"
     return this.httpClient.post<ResponseModel>(newPath,employee)
   }
   getUserDetailDtoByUserId(userId:number){

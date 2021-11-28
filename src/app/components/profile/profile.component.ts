@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, NgModule, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+
 import { ToastrService } from 'ngx-toastr';
 import { UserDetailDto } from 'src/app/models/userDetailDto';
 import { UserImage } from 'src/app/models/userImage';
@@ -7,11 +8,13 @@ import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { UserImageService } from 'src/app/services/user-image.service';
 import { UserService } from 'src/app/services/user.service';
 
+
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.css']
 })
+
 export class ProfileComponent implements OnInit {
   userUpdateForm:FormGroup
   userImagePath:any
@@ -19,6 +22,11 @@ export class ProfileComponent implements OnInit {
   userImages:UserImage[]=[]
   imageId:number
   user:UserDetailDto = new UserDetailDto();
+  dateOfBirth = new Date();
+  dateOfRecruitment = new Date();
+  dateOfDismissal = new Date();
+  @Output() onUpdated = new EventEmitter()
+  
   constructor(private userService:UserService,private localStorageService: LocalStorageService,private formBuilder:FormBuilder,private toastrService:ToastrService,
     private userImageService:UserImageService) { }
 
@@ -26,12 +34,13 @@ export class ProfileComponent implements OnInit {
   ngOnInit(): void {
     this.getUserByUserId()
     this.createUserUpdateForm()
+    this.getUserImagesByUserId()
   }
+  
   getUserByUserId(){
     this.userService.getUserDetailDtoByUserId(parseInt(this.localStorageService.getItem("userId"))).subscribe(response=>{
       this.user = response.data
       this.createUserUpdateForm()
-      console.log(this.user)
     })
   }
   createUserUpdateForm(){
@@ -42,16 +51,22 @@ export class ProfileComponent implements OnInit {
       lastName:[this.user.lastName,[Validators.required,Validators.maxLength(50)]],
       titleId:[this.user.titleId,Validators.required],
       salary:[this.user.salary,Validators.required],
+      tcNo:[this.user.tcNo,[Validators.required,Validators.minLength(11)]],
+      mobilePhoneNumber:[this.user.mobilePhoneNumber,[Validators.required,Validators.minLength(11),Validators.maxLength(11)]],
+      fixedPhoneNumber:[this.user.fixedPhoneNumber],
+      dateOfBirth:[this.user.dateOfBirth,[Validators.required]],
+      dateOfRecruitment:[this.user.dateOfRecruitment,[Validators.required]],
+      dateOfDismissal:[this.user.dateOfDismissal,[Validators.required]],
       email:[this.user.email,[Validators.required,Validators.email]],
       status:[this.user.status,Validators.required]
     })
   }
-  updateUserWithoutPassword(user:UserDetailDto){
+  updateUser(user:UserDetailDto){
     if(this.userUpdateForm.valid){
       if(this.userUpdateForm.dirty){
         user = Object.assign({},this.userUpdateForm.value)
-        this.userService.updateUserWithoutPassword(user).subscribe(response=>{
-          
+        this.userService.updateUser(user).subscribe(response=>{
+          this.getUserByUserId();
           this.toastrService.success(response.message,"Başarılı!")
         },responseError=>{
           this.toastrService.error(responseError.error,"Hata!")
@@ -63,13 +78,14 @@ export class ProfileComponent implements OnInit {
     }
   }
   updateUserImage(){
-    console.log(this.imageId)
     if(this.userImageFile!=null&&this.userImagePath!=null && this.userImages.length>0){
       this.userImageService.updateUserImage(this.userImageFile,this.imageId).subscribe(response=>{
           this.setUserImagePathAndImageFileToNull()
+          this.getUserImagesByUserId();
+          this.onUpdated.emit()
           this.toastrService.success(response.message,"Başarılı!")
       },responseError=>{
-        this.toastrService.error(responseError.error,"Kullanıcı fotoğrafı güncellenemedi!")
+        this.toastrService.error(responseError.error,"Fotoğrafınız güncellenemedi!")
       })
     }
     if(this.userImagePath!=null && this.userImages.length==0){
@@ -85,7 +101,7 @@ export class ProfileComponent implements OnInit {
     })  
 }
   getUserImagesByUserId(){
-    this.userImageService.getAllUserImagesByUserId(this.user.id).subscribe(response=>{
+    this.userImageService.getAllUserImagesByUserId(parseInt(this.localStorageService.getItem("userId")) ).subscribe(response=>{
       this.userImages = response.data
       if(response.data.length>0)
       this.imageId = response.data[0].id;
@@ -107,5 +123,12 @@ export class ProfileComponent implements OnInit {
     reader.onload = () =>{
       this.userImagePath = reader.result as string
     }
+  }
+  numberOnly(event:any): boolean {
+    const charCode = (event.which) ? event.which : event.keyCode;
+    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+      return false;
+    }
+    return true;
   }
 }

@@ -15,6 +15,6 @@ body{
 .avatar {
     margin-top: 2px;
     width: 80%;
-    height: 145px;
-    border-radius: 5%;
+    height: 80%;
+    border-radius: 50%;
 }

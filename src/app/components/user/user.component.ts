@@ -47,10 +47,10 @@ export class UserComponent implements OnInit {
       }
     })
   }
-  updateUserStatus(user:User){
+  updateUserStatus(user:UserDetailDto){
     user.status = !user.status
     this.sortingByFirstNameBefore=!this.sortingByFirstNameBefore
-    this.userService.updateUserStatus(user).subscribe(response=>{
+    this.userService.updateUser(user).subscribe(response=>{
       this.getAllEmployees()
       this.getAllFormerEmployees()
       this.sortingEmployeesByFirstName()
