@@ -19,7 +19,7 @@
         <p class="designation">{{user.title}}</p>
 
         <mat-divider></mat-divider>
-        <button mat-button class="menu-button" (click)="closeSidenavAfterClick()">
+        <button mat-button class="menu-button" routerLink="/mainpage/orders" (click)="closeSidenavAfterClick()">
             <mat-icon class="menu-icon">assignment</mat-icon>
             <span>Siparişler</span>
         </button>
@@ -54,6 +54,9 @@
         </div>
         <div class="container" *ngIf="router.url.includes('/mainpage/profile')">
             <app-profile (onUpdated)="getUserDetailDtoByUserId()"></app-profile>
+        </div>
+        <div class="container" *ngIf="router.url=='/mainpage/orders'">
+            <app-order (scrolled)="scrollUp()"></app-order>
         </div>
     </mat-sidenav-content>
 </mat-sidenav-container>

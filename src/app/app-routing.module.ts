@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { ClientSideComponent } from './components/client-side/client-side.component';
 import { LoginComponent } from './components/login/login.component';
+import { OrderComponent } from './components/order/order.component';
 import { ProductAddDialogComponent } from './components/product/modal/product-add-dialog/product-add-dialog.component';
 import { ProductDeleteDialogComponent } from './components/product/modal/product-delete-dialog/product-delete-dialog.component';
 import { ProductUpdateDialogComponent } from './components/product/modal/product-update-dialog/product-update-dialog.component';
@@ -25,9 +27,11 @@ const routes: Routes = [
       {path:"useradd",component:UserAddDialogComponent},
       {path:"userupdate",component:UserUpdateDialogComponent}
     ]},
-    {path:"profile",component:ProfileComponent}
+    {path:"profile",component:ProfileComponent},
+    {path:"orders",component:OrderComponent}
   ]},
-  {path:"login",component:LoginComponent}
+  {path:"login",component:LoginComponent},
+  {path:"clientside",component:ClientSideComponent}
 ];
 
 @NgModule({

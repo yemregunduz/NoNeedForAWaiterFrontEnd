@@ -12,7 +12,6 @@ export class UserOperationClaimService {
 
   apiUrl="https://localhost:44351/api/useroperationclaims/"
   constructor(private httpClient:HttpClient) { }
-
   addUserOperationClaim(userOperationClaim:UserOperationClaim){
     let newPath = this.apiUrl+"add"
     return this.httpClient.post<ResponseModel>(newPath,userOperationClaim);

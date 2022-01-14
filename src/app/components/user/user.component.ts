@@ -2,7 +2,9 @@ import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angu
 import { MatDialog } from '@angular/material/dialog';
 import { User } from 'src/app/models/user';
 import { UserDetailDto } from 'src/app/models/userDetailDto';
+import { UserOperationClaim } from 'src/app/models/userOperationClaim';
 import { UserImageService } from 'src/app/services/user-image.service';
+import { UserOperationClaimService } from 'src/app/services/user-operation-claim.service';
 import { UserService } from 'src/app/services/user.service';
 import { UserAddDialogComponent } from './modal/user-add-dialog/user-add-dialog.component';
 import { UserDeleteDialogComponent } from './modal/user-delete-dialog/user-delete-dialog.component';
@@ -27,6 +29,7 @@ export class UserComponent implements OnInit {
   sortingByFirstNameBefore:boolean = false
   constructor(private userService:UserService,public dialog:MatDialog,private userImageService:UserImageService) { }
   restaurantIdFromStorage:number = parseInt(localStorage.getItem('restaurantId'))
+  userIdFromStorage:number = parseInt(localStorage.getItem('userId'))
   ngOnInit(): void {
     this.getAllEmployees();
     this.getAllFormerEmployees();
@@ -125,4 +128,5 @@ export class UserComponent implements OnInit {
       })
     }
   }
+  
 }

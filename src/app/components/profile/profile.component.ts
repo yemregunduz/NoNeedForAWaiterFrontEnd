@@ -55,8 +55,8 @@ export class ProfileComponent implements OnInit {
       mobilePhoneNumber:[this.user.mobilePhoneNumber,[Validators.required,Validators.minLength(11),Validators.maxLength(11)]],
       fixedPhoneNumber:[this.user.fixedPhoneNumber],
       dateOfBirth:[this.user.dateOfBirth,[Validators.required]],
-      dateOfRecruitment:[this.user.dateOfRecruitment,[Validators.required]],
-      dateOfDismissal:[this.user.dateOfDismissal,[Validators.required]],
+      dateOfRecruitment:[this.user.dateOfRecruitment],
+      dateOfDismissal:[this.user.dateOfDismissal],
       email:[this.user.email,[Validators.required,Validators.email]],
       status:[this.user.status,Validators.required]
     })
@@ -75,6 +75,7 @@ export class ProfileComponent implements OnInit {
     }
     else{
       this.toastrService.error("Formu eksiksiz doldurunuz.","Hata!")
+      console.log(this.userUpdateForm)
     }
   }
   updateUserImage(){

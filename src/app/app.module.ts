@@ -63,6 +63,9 @@ import { UserFilterPipePipe } from './pipes/user-filter-pipe.pipe';
 import { ProductFilterPipePipe } from './pipes/product-filter-pipe.pipe';
 import { ProfileComponent } from './components/profile/profile.component';
 import { DateFormatPipe } from './pipes/date-format.pipe';
+import { ClientSideComponent } from './components/client-side/client-side.component';
+import { OrderComponent } from './components/order/order.component';
+import { OrderDetailsDialogComponent } from './components/order/modal/order-details-dialog/order-details-dialog.component';
 
 
 
@@ -86,6 +89,9 @@ import { DateFormatPipe } from './pipes/date-format.pipe';
     ProductFilterPipePipe,
     ProfileComponent,
     DateFormatPipe,
+    ClientSideComponent,
+    OrderComponent,
+    OrderDetailsDialogComponent,
   ],
   imports: [
     BrowserModule,
