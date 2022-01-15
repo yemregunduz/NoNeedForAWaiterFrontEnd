@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ListResponseModel } from '../models/listResponseModel';
 import { OrderDetail } from '../models/orderDetail';
+import { OrderDetailDto } from '../models/orderDetailDto';
 import { ResponseModel } from '../models/responseModel';
 
 @Injectable({
@@ -24,8 +25,8 @@ export class OrderDetailService {
     let newPath = this.apiUrl+"update"
     return this.httpClient.post<ResponseModel>(newPath,orderDetail); 
   }
-  getAllOrderDetailsByOrderId(orderId:number){
-    let newPath = this.apiUrl+"getallorderdetailsbyorderid?orderId="+orderId
-    return this.httpClient.get<ListResponseModel<OrderDetail>>(newPath);
+  getAllOrderDetailDtosByOrderId(orderId:number){
+    let newPath = this.apiUrl+"getallorderdetaildtosbyorderid?orderId="+orderId
+    return this.httpClient.get<ListResponseModel<OrderDetailDto>>(newPath);
   }
 }

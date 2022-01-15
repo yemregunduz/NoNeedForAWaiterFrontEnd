@@ -1,10 +1,10 @@
 export interface OrderTableDto{
-    orderId:number,
+    id:number,
     tableId:number,
     restaurantId:number,
     tableNo:number,
     orderDate:Date,
     orderAmount:number,
-    orderStatus:boolean,
+    orderStatus:number,
     restaurantName:string
 }

@@ -9,20 +9,24 @@
                             <thead>
                                 <tr class="align-self-center">
                                     <th>Masa numarası</th>
-                                    <th>Sipariş Tarihi</th>
+                                    <th>Sipariş Saati</th>
                                     <th>Sipariş Tutarı</th>
                                     <th>Sipariş Durumu</th>
                                     <th>Detay</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td><strong>Masa 17</strong></td>
-                                    <td>5/8/2018</td>
-                                    <td>253 ₺</td>
-                                    <td><span class="badge badge-boxed badge-soft-warning">Bekliyor</span></td>
+                                <tr *ngFor="let order of orders">
+                                    <td><strong>Masa {{order.tableNo}}</strong></td>
+                                    <td>{{order.orderDate |  date:'hh.mm'}}</td>
+                                    <td>{{order.orderAmount}}₺</td>
                                     <td>
-                                        <button mat-icon-button color="primary" matTooltip="Sipariş detayı" style="border:1.8px solid blue!important" >
+                                        <span class="badge badge-boxed badge-soft-warning" *ngIf="order.orderStatus == 0">Bekliyor</span>
+                                        <span class="badge badge-boxed badge-soft-primary" *ngIf="order.orderStatus == 1">Hazırlanıyor</span>
+                                    </td>
+                                    <td>
+                                        <button mat-icon-button color="primary" matTooltip="Sipariş detayı" 
+                                        style="border:1.8px solid blue!important" (click)="openOrderDetailsDialog(order)">
                                             <mat-icon style="vertical-align: middle;">arrow_forward</mat-icon>
                                         </button>
                                     </td>

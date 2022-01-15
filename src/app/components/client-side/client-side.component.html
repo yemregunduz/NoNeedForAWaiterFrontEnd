@@ -1,0 +1,61 @@
+<mat-toolbar class="mat-elevation-z8">
+    Gündüzler ocakbaşı
+</mat-toolbar>
+<section class="main-content">
+    <div class="container">
+        <h1 class="text-center text-uppercase">Food Order Card</h1>
+        <br>
+        <br>
+        <div class="row">
+            <div class="col-sm-6 col-md-6 col-lg-6" style="margin-top:25px" *ngFor="let product of products">
+                <div class="food-card food-card--vertical" >
+                    <div class="food-card_img" >
+                        <img *ngIf="product.productImagePath!=null" [src]="getProductImagePath(product.productImagePath)" >
+                        <img *ngIf="product.productImagePath==null" src="assets/images/defaultproductimage.png" >
+                        <a href="#!"><i class="fa fa-heart"></i></a>
+                    </div>
+                    <div class="food-card_content">
+                        <div class="food-card_title-section">
+                            <a href="#!" class="food-card_title">{{product.productName}}</a>
+                            <a href="#!" class="food-card_author">{{product.categoryName}}</a>
+                        </div>
+                        <div class="food-card_bottom-section">
+                            <div class="space-between" >
+                                <div>
+                                     <small>{{product.productDescription}}</small>
+                                </div>
+                                <div class="pull-right">
+                                    <span class="badge badge-success">Veg</span>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="space-between">
+                                <div class="food-card_price">
+                                    <span>{{product.unitPrice}}₺</span>
+                                </div>
+                                <div class="food-card_order-count" >
+                                    <div *ngIf="product.stock>0" class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <button mat-stroked-button color="warn" >
+                                                <mat-icon>remove</mat-icon>
+                                              </button>
+                                        </div>
+                                        <input type="number" readonly class="form-control input-manulator"   value="0">
+                                        <div class="input-group-append">
+                                            <button mat-stroked-button color="success" (click)="addToCart(product)" >
+                                                <mat-icon>add</mat-icon>
+                                              </button>
+                                        </div>
+                                    </div>
+                                    <div class="input-group mb-3" *ngIf="product.stock<=0">
+                                        <span class="badge badge-boxed badge-soft-warning">STOKTA YOK!</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

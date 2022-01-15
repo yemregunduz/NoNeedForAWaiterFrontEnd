@@ -21,7 +21,7 @@ export class OrderService {
     let newPath = this.apiUrl+"delete"
     return this.httpClient.post<ResponseModel>(newPath,order);
   }
-  updateOrder(order:Order){
+  updateOrder(order:any){
     let newPath = this.apiUrl+"update"
     return this.httpClient.post<ResponseModel>(newPath,order)
   }
@@ -34,8 +34,8 @@ export class OrderService {
     return this.httpClient.get<ListResponseModel<OrderTableDto>>(newPath);
   }
 
-  getAllOrderTablesDtoByRestaurantIdAndOrderStatus(restaurantId:number,orderStatus:boolean){
-    let newPath = this.apiUrl+"getallordertablesdtobyrestaurantidandorderstatus?restaurantId="+restaurantId+"&orderStatus="+orderStatus;
+  getAllOrderTablesDtoByRestaurantIdAndOrderStatus(restaurantId:number,orderStatus:number){
+    let newPath= this.apiUrl+"getallordertablesdtobyrestaurantidandorderstatus?restaurantId="+restaurantId+"&orderStatus="+orderStatus
     return this.httpClient.get<ListResponseModel<OrderTableDto>>(newPath);
   }
 
