@@ -66,6 +66,8 @@ import { DateFormatPipe } from './pipes/date-format.pipe';
 import { ClientSideComponent } from './components/client-side/client-side.component';
 import { OrderComponent } from './components/order/order.component';
 import { OrderDetailsDialogComponent } from './components/order/modal/order-details-dialog/order-details-dialog.component';
+import { ShoppingCartDialogComponent } from './components/client-side/modal/shopping-cart-dialog/shopping-cart-dialog.component';
+import { CategoryProductPipe } from './pipes/category-product.pipe';
 
 
 
@@ -92,6 +94,8 @@ import { OrderDetailsDialogComponent } from './components/order/modal/order-deta
     ClientSideComponent,
     OrderComponent,
     OrderDetailsDialogComponent,
+    ShoppingCartDialogComponent,
+    CategoryProductPipe,
   ],
   imports: [
     BrowserModule,

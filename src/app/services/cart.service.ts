@@ -11,7 +11,7 @@ export class CartService {
   constructor() { }
 
   addToCart(product:Product){
-    let cartItem = CartItems.find(c=>c.product.id);
+    let cartItem = CartItems.find(c=>c.product.id === product.id);
     if(cartItem){
       cartItem.quantity=cartItem.quantity+1
       this.calculateLineTotalAndCartTotal(product)
@@ -21,6 +21,7 @@ export class CartService {
       cartItem.product = product;
       cartItem.quantity=1;
       CartItems.push(cartItem);
+      this.calculateLineTotalAndCartTotal(product)
      
     }
   }
@@ -42,12 +43,13 @@ export class CartService {
   }
   calculateLineTotalAndCartTotal(product:Product){
     let cartItem = CartItems.find(c=>c.product.id===product.id)
+    console.log(cartItem.quantity)
     cartItem.lineTotal = product.unitPrice*cartItem.quantity
 
     let cartTotal = CartItems.map(c=>c.lineTotal).reduce((acc,currentValue)=>acc+currentValue);
-    CartItems.map(c=>{
-      c.cartTotal = cartTotal
-      return c;
+    CartItems.map(m=>{
+      m.cartTotal = cartTotal
+      return m;
     })
   }
   listCart():CartItem[]{

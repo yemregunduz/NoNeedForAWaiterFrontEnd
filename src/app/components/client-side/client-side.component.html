@@ -1,61 +1,88 @@
-<mat-toolbar class="mat-elevation-z8">
-    Gündüzler ocakbaşı
+<mat-toolbar class="mat-elevation-z8" id="top-navbar">
+  Gündüzler ocakbaşı
 </mat-toolbar>
-<section class="main-content">
-    <div class="container">
-        <h1 class="text-center text-uppercase">Food Order Card</h1>
-        <br>
-        <br>
-        <div class="row">
-            <div class="col-sm-6 col-md-6 col-lg-6" style="margin-top:25px" *ngFor="let product of products">
-                <div class="food-card food-card--vertical" >
-                    <div class="food-card_img" >
-                        <img *ngIf="product.productImagePath!=null" [src]="getProductImagePath(product.productImagePath)" >
-                        <img *ngIf="product.productImagePath==null" src="assets/images/defaultproductimage.png" >
-                        <a href="#!"><i class="fa fa-heart"></i></a>
+<div class="container" style="overflow-x:hidden;">
+  <div class="menu" style="margin-top: 50px">
+    <div class="row" *ngFor="let category of categories">
+    
+      <h2 class="menu-group-heading">
+        {{ category.categoryName }}
+      </h2>
+      <div class="row">
+        <div class="col-md-4" *ngFor="let product of products | categoryProduct: category.id">
+            <div class="row">
+                <div
+                class="menu-group"
+                >
+                <div class="menu-item" [attr.id]="'product' + product.id">
+                  <img
+                    *ngIf="product.productImagePath != null"
+                    class="menu-item-image"
+                    [src]="getProductImagePath(product.productImagePath)"
+                  />
+                  <img
+                    *ngIf="product.productImagePath == null"
+                    class="menu-item-image"
+                    src="/assets/images/defaultproductimage.png"
+                  />
+                  <div class="menu-item-text">
+                    <h3 class="menu-item-heading">
+                      <span class="menu-item-name"
+                        ><b>{{ product.productName }}</b></span
+                      >
+                      <span class="menu-item-price">{{ product.unitPrice }}₺</span>
+                    </h3>
+                    <p class="menu-item-description">
+                      {{ product.productDescription }}
+                    </p>
+                  </div>
+                </div>
+                
+              </div>
+            </div>
+
+          <div class="row">
+            <div class="food-card_order-count">
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <button mat-icon-button color="warn" (click)="removeFromCart(product)" (click)="calculateCartTotal()" ><mat-icon>remove</mat-icon></button>
                     </div>
-                    <div class="food-card_content">
-                        <div class="food-card_title-section">
-                            <a href="#!" class="food-card_title">{{product.productName}}</a>
-                            <a href="#!" class="food-card_author">{{product.categoryName}}</a>
-                        </div>
-                        <div class="food-card_bottom-section">
-                            <div class="space-between" >
-                                <div>
-                                     <small>{{product.productDescription}}</small>
-                                </div>
-                                <div class="pull-right">
-                                    <span class="badge badge-success">Veg</span>
-                                </div>
-                            </div>
-                            <hr>
-                            <div class="space-between">
-                                <div class="food-card_price">
-                                    <span>{{product.unitPrice}}₺</span>
-                                </div>
-                                <div class="food-card_order-count" >
-                                    <div *ngIf="product.stock>0" class="input-group mb-3">
-                                        <div class="input-group-prepend">
-                                            <button mat-stroked-button color="warn" >
-                                                <mat-icon>remove</mat-icon>
-                                              </button>
-                                        </div>
-                                        <input type="number" readonly class="form-control input-manulator"   value="0">
-                                        <div class="input-group-append">
-                                            <button mat-stroked-button color="success" (click)="addToCart(product)" >
-                                                <mat-icon>add</mat-icon>
-                                              </button>
-                                        </div>
-                                    </div>
-                                    <div class="input-group mb-3" *ngIf="product.stock<=0">
-                                        <span class="badge badge-boxed badge-soft-warning">STOKTA YOK!</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                    <input type="number" readonly class="form-control input-manulator"  [attr.id]="product.id+'quantity'" value="0" >
+                    <div class="input-group-append">
+                        <button mat-icon-button color="success" (click)="addToCart(product)" (click)="calculateCartTotal()">
+                            <mat-icon>add</mat-icon>
+                          </button>
                     </div>
                 </div>
             </div>
+          </div>
         </div>
+        
+      </div>
+      
     </div>
-</section>
+  </div>
+  <hr>
+</div>
+<mat-toolbar
+  class="mat-elevation-z8"
+  id="bottom-navbar"
+  style="align-items: center"
+>
+  <div class="button-group" >
+    <button mat-stroked-button color="warn">
+      <mat-icon>
+        restaurant
+      </mat-icon>
+    </button> 
+    <button mat-stroked-button color="success" (click)="openShoppingCartDialog(cartItems)"><mat-icon
+      *ngIf="cartItems.length > 0"
+      [matBadge]="cartItems.length"
+      matBadgePosition="before"
+      matBadgeColor="warn"
+      
+      >shopping_cart</mat-icon
+    >
+    <mat-icon *ngIf="cartItems.length == 0">shopping_cart</mat-icon></button>
+  </div>
+</mat-toolbar>

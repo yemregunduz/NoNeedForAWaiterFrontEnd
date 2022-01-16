@@ -1,49 +1,26 @@
-import { Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { Component, Inject, OnInit } from '@angular/core';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
 import { CartItem } from 'src/app/models/cartItem';
-import { Category } from 'src/app/models/category';
 import { Product } from 'src/app/models/product';
 import { CartService } from 'src/app/services/cart.service';
-import { CategoryService } from 'src/app/services/category.service';
 import { ProductImageService } from 'src/app/services/product-image.service';
 
-import { ProductService } from 'src/app/services/product.service';
-import { ShoppingCartDialogComponent } from './modal/shopping-cart-dialog/shopping-cart-dialog.component';
-
 @Component({
-  selector: 'app-client-side',
-  templateUrl: './client-side.component.html',
-  styleUrls: ['./client-side.component.css']
+  selector: 'app-shopping-cart-dialog',
+  templateUrl: './shopping-cart-dialog.component.html',
+  styleUrls: ['./shopping-cart-dialog.component.css']
 })
-export class ClientSideComponent implements OnInit {
+export class ShoppingCartDialogComponent implements OnInit {
 
-  constructor(private productService:ProductService,private productImageService:ProductImageService,private toastrService:ToastrService,private cartService:CartService,
-    private dialog:MatDialog,private categoryService:CategoryService) { }
-  products:Product[]
-  cartItems:CartItem[]=[]
-  categories:Category[]=[]
+  constructor(@Inject(MAT_DIALOG_DATA) public cartItems:CartItem[],private productImageService:ProductImageService,private cartService:CartService,private toastrService:ToastrService) { }
   cartTotal:any=sessionStorage.getItem("cartTotal")
   restaurantIdFromStorage = parseInt(localStorage.getItem("restaurantId"))
   quantity:number= 0
   ngOnInit(): void {
-    this.getAllProductDetailsDtoByRestaurantId()
-    this.getCart();
-    this.getAllCategories()
-  }
-  getAllProductDetailsDtoByRestaurantId(){
-    this.productService.getAllProductDetailsDtoByRestaurantId(this.restaurantIdFromStorage).subscribe(response=>{
-      this.products = response.data
-   
-    })
-  }
-  getAllCategories(){
-    this.categoryService.getAllCategories().subscribe(response=>{
-      this.categories = response.data
-    })
   }
   getProductImagePath(productImagePath:string){
-    return this.productImageService.getProductImagePath(productImagePath);
+    return this.productImageService.getProductImagePath(productImagePath)
   }
   getCart(){
     this.cartItems=this.cartService.listCart()
@@ -91,11 +68,5 @@ export class ClientSideComponent implements OnInit {
   checkCartItemQuantity(product:Product){
     (document.getElementById(product.id+'quantity') as HTMLInputElement).value=this.cartItems.find(c=>c.product.id==product.id).quantity.toString()
   }
-  openShoppingCartDialog(cartItems:CartItem[]){
-    const shoppingCartDialogRef = this.dialog.open(ShoppingCartDialogComponent,{
-      minWidth:'25%',
-      data:cartItems
-    })
-  }
+  
 }
-

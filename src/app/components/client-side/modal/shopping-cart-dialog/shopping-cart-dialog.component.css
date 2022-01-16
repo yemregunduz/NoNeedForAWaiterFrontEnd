@@ -11,11 +11,10 @@
   
   .menu-group-heading {
     margin: 0;
-    padding-bottom: 1em;
     background-color: #3D9970;
     color:white;
     text-align: center;
-    border-radius: 5px;
+	width:auto;
   }
   
   .menu-group {
@@ -30,8 +29,8 @@
   }
   
   .menu-item-image {
-    width: 80px;
-    height: 80px;
+    width: 60px;
+    height: 60px;
     flex-shrink: 0;
     object-fit: cover;
     margin-right: 1.5em;
@@ -41,7 +40,7 @@
     flex-grow: 1;
   }
   .menu-item-price{
-    font-size: 28px;
+    font-size: 20px;
     font-weight: 500;
     color: #F47A00;
   }
@@ -73,33 +72,13 @@
       height: 125px;
     }
   }
-  
-#top-navbar{
-    background: #004a9f;
-    color: white;
-    position: fixed;
-    position: -webkit-sticky; /* For macOS/iOS Safari */
-    top: 0; /* Sets the sticky toolbar to be on top */
-    z-index: 1000; 
-}
-#bottom-navbar{
-    background-color: #DDDDDD;
-    color:white;
-    position:fixed;
-    position: -webkit-sticky;
-    bottom:0;
-    z-index: 1000;
-}
-/* Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
-
-/* Firefox */
 input[type=number] {
-  -moz-appearance: textfield;
+	-moz-appearance: textfield;
 }
 .badge-soft-warning {
     background-color: rgba(248,201,85,.2);
@@ -107,16 +86,8 @@ input[type=number] {
     height: 25px;
     font-size: 0.9rem;
 }
-.mat-button-toggle-checked{
-    background-color: #be97bb;
-    color: white;
-}
-.button-group{
-    position:absolute;
-    right: 50%;
-}
 .food-card_order-count{
-    width: 50%;
+    width: 150px
 }
 .food-card_order-count button {
     border-color: #f5f5f5;

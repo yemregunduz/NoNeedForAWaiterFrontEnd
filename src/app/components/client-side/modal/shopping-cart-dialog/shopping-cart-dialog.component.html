@@ -1,0 +1,63 @@
+<div style="background-color: black; height:30px; width:auto"><h2 class="menu-group-heading">
+	YEMEK SEPETİM
+  </h2></div>
+
+<mat-dialog-content>
+	
+	<div class="container" style="overflow-x:hidden;">
+		
+		<div class="menu" style="margin-top: 50px" *ngFor="let cartItem of cartItems">
+				  <div class="row" >
+					  <div
+					  class="menu-group"
+					  >
+					  <div class="menu-item" [attr.id]="'product' + cartItem.product.id" >
+						<img
+						  *ngIf="cartItem.product.productImagePath != null"
+						  class="menu-item-image"
+						  [src]="getProductImagePath(cartItem.product.productImagePath)"
+						/>
+						<img
+						  *ngIf="cartItem.product.productImagePath == null"
+						  class="menu-item-image"
+						  src="/assets/images/defaultproductimage.png"
+						/>
+						<div class="menu-item-text">
+						  <h3 class="menu-item-heading">
+							<span class="menu-item-name"
+							  ><b>{{ cartItem.product.productName }}</b></span
+							>
+							<span class="menu-item-price">{{cartItem.quantity}}x{{cartItem.product.unitPrice}} = {{ cartItem.product.unitPrice*cartItem.quantity }}₺</span>
+						  </h3>
+						  <p class="menu-item-description">
+							{{ cartItem.product.productDescription }}
+						  </p>
+						</div>
+						
+					  </div>
+					  
+					</div>
+				  </div>
+				  <div class="row">
+					<div class="food-card_order-count">
+						<div class="input-group mb-3">
+							<div class="input-group-prepend">
+								<button mat-icon-button color="warn" (click)="removeFromCart(cartItem.product)" (click)="calculateCartTotal()" ><mat-icon>remove</mat-icon></button>
+							</div>
+							<input type="number" readonly class="form-control input-manulator"  [attr.id]="cartItem.product.id+'quantity'" [value]="cartItem.quantity" >
+							<div class="input-group-append">
+								<button mat-icon-button color="success" (click)="addToCart(cartItem.product)" (click)="calculateCartTotal()">
+									<mat-icon>add</mat-icon>
+								  </button>
+							</div>
+						</div>
+					</div>
+				  </div>
+		</div>
+		<hr>
+	  </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-button color="warn" mat-dialog-close>Menüye dön</button>
+    <button mat-stroked-button  color="success" cdkFocusInitial  >Sepeti Onayla</button>
+</mat-dialog-actions>
