@@ -9,6 +9,7 @@ export class PaymentSuccessComponent implements OnInit {
 
   constructor() { }
 
+  tableIdFromStorage = parseInt(sessionStorage.getItem("tableId"))
   ngOnInit(): void {
   }
 

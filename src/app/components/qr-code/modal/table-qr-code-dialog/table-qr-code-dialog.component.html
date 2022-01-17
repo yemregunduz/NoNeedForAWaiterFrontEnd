@@ -1,0 +1,74 @@
+<link
+  href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+  rel="stylesheet"
+/>
+<h2 *ngIf="qrCodesByTable.length>0" mat-dialog-title class="dialog-title">Masa {{qrCodesByTable[0].tableNo}}'e ait QrCode'lar</h2>
+    <mat-dialog-content id="printable">
+        <div *ngIf="qrCodesByTable.length == 0">
+          <span class="badge badge-boxed badge-soft-warning"
+            >Bu masaya ait QrCode bulunmamaktadır.</span
+          >
+        </div>
+        <div
+          id="main-content"
+          class="file_manager"
+          *ngIf="qrCodesByTable.length >= 0"
+        >
+          <div class="container">
+            <div class="row clearfix">
+              <div
+                class="col-md-4 col-md-4 col-sm-12"
+                id="classToChange"
+                *ngFor="let qrCode of qrCodesByTable"
+              >
+                <div class="card">
+                  <div class="file">
+                    <a href="javascript:void(0);">
+                      <div class="hover">
+                        <button
+                          type="button"
+                          (click)="deleteQrCode(qrCode)"
+                          class="btn btn-icon btn-danger"
+                        >
+                          <i class="fa fa-trash"></i>
+                        </button>
+                      </div>
+                      <div class="image">
+                        <img
+                          [src]="getQrCodeImagePath(qrCode)"
+                          alt="img"
+                          class="img-fluid"
+                        />
+                      </div>
+                      <div class="file-name">
+                        <b>Masa No: {{ qrCode.tableNo }}</b>
+                        <small
+                          ><span class="date text-muted"
+                            >Qr scanner ile taratıp menüye erişebilirsiniz.</span
+                          ></small
+                        >
+                      </div>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </mat-dialog-content>
+      <mat-dialog-actions align="end" id="noprintable">
+        <button mat-button color="warn" mat-dialog-close>Vazgeç</button>
+        <button mat-stroked-button color="primary" (click)="createQrCodeAddForm()">
+          QrCode oluştur
+        </button>
+        <button
+          *ngIf="qrCodesByTable.length > 0"
+          mat-stroked-button
+          (click)="printQrCodes()"
+          color="success"
+          cdkFocusInitial
+        >
+          Hepsini yazdır
+        </button>
+      </mat-dialog-actions>
+      

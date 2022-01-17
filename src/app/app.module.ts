@@ -71,6 +71,7 @@ import { CategoryProductPipe } from './pipes/category-product.pipe';
 import { PaymentComponent } from './components/payment/payment.component';
 import { PaymentSuccessComponent } from './components/payment/payment-success/payment-success.component';
 import { QrCodeComponent } from './components/qr-code/qr-code.component';
+import { TableQrCodeDialogComponent } from './components/qr-code/modal/table-qr-code-dialog/table-qr-code-dialog.component';
 
 
 
@@ -102,6 +103,7 @@ import { QrCodeComponent } from './components/qr-code/qr-code.component';
     PaymentComponent,
     PaymentSuccessComponent,
     QrCodeComponent,
+    TableQrCodeDialogComponent,
   ],
   imports: [
     BrowserModule,

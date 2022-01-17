@@ -37,7 +37,7 @@ export class LoginComponent implements OnInit {
         this.localStorageService.add('token',response.data.token)
         this.localStorageService.add('restaurantId',response.data.restaurantId.toString())
         this.localStorageService.add('userId',response.data.userId.toString())
-        this.toastrService.success("Giriş başarılı!","Başarılı!")
+        this.toastrService.success("Giriş başarılı!",response.message)
         this.loginForm.reset()
         this.router.navigate(["mainpage"])
       },responseError=>{

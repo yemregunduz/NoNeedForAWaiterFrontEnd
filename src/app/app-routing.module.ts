@@ -35,7 +35,7 @@ const routes: Routes = [
     {path:"qrcodes",component:QrCodeComponent}
   ]},
   {path:"login",component:LoginComponent},
-  {path:"clientside",component:ClientSideComponent},
+  {path:"clientside/:tableId",component:ClientSideComponent},
   {path:"payment",component:PaymentComponent},
   {path:"paymentsuccess",component:PaymentSuccessComponent}
 ];

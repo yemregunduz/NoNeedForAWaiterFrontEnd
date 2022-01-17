@@ -66,7 +66,7 @@ export class PaymentComponent implements OnInit {
   }
   createOrderAddForm(){
     this.orderAddForm=this.formBuilder.group({
-      tableId:[1,Validators.required],
+      tableId:[parseInt(sessionStorage.getItem("tableId")),Validators.required],
       orderDate:[new Date(),Validators.required],
       orderStatus:[0,Validators.required],
       orderAmount:[this.cartTotal,Validators.required]

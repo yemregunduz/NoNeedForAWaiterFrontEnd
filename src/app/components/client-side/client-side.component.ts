@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { CartItem } from 'src/app/models/cartItem';
 import { Category } from 'src/app/models/category';
@@ -19,7 +20,7 @@ import { ShoppingCartDialogComponent } from './modal/shopping-cart-dialog/shoppi
 export class ClientSideComponent implements OnInit {
 
   constructor(private productService:ProductService,private productImageService:ProductImageService,private toastrService:ToastrService,private cartService:CartService,
-    private dialog:MatDialog,private categoryService:CategoryService) { }
+    private dialog:MatDialog,private categoryService:CategoryService,private activatedRoute:ActivatedRoute) { }
   products:Product[]
   cartItems:CartItem[]=[]
   categories:Category[]=[]
@@ -29,7 +30,8 @@ export class ClientSideComponent implements OnInit {
   ngOnInit(): void {
     this.getAllProductDetailsDtoByRestaurantId()
     this.getCart();
-    this.getAllCategories()
+    this.getAllCategories();
+    this.setTableId()
   }
   getAllProductDetailsDtoByRestaurantId(){
     this.productService.getAllProductDetailsDtoByRestaurantId(this.restaurantIdFromStorage).subscribe(response=>{
@@ -100,6 +102,12 @@ export class ClientSideComponent implements OnInit {
     })
     shoppingCartDialogRef.componentInstance.clickOnConfirmCartOut.subscribe(response=>{
       shoppingCartDialogRef.close();
+    })
+  }
+  setTableId(){
+    this.activatedRoute.params.subscribe(params=>{
+       sessionStorage.setItem("tableId",params['tableId'])
+       console.log(params["tableId"])
     })
   }
 }
