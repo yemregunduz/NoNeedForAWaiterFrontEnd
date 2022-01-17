@@ -107,10 +107,6 @@ input[type=number] {
     height: 25px;
     font-size: 0.9rem;
 }
-.mat-button-toggle-checked{
-    background-color: #be97bb;
-    color: white;
-}
 .button-group{
     position:absolute;
     right: 50%;

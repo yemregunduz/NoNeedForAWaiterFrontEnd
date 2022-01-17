@@ -68,6 +68,9 @@ import { OrderComponent } from './components/order/order.component';
 import { OrderDetailsDialogComponent } from './components/order/modal/order-details-dialog/order-details-dialog.component';
 import { ShoppingCartDialogComponent } from './components/client-side/modal/shopping-cart-dialog/shopping-cart-dialog.component';
 import { CategoryProductPipe } from './pipes/category-product.pipe';
+import { PaymentComponent } from './components/payment/payment.component';
+import { PaymentSuccessComponent } from './components/payment/payment-success/payment-success.component';
+import { QrCodeComponent } from './components/qr-code/qr-code.component';
 
 
 
@@ -96,6 +99,9 @@ import { CategoryProductPipe } from './pipes/category-product.pipe';
     OrderDetailsDialogComponent,
     ShoppingCartDialogComponent,
     CategoryProductPipe,
+    PaymentComponent,
+    PaymentSuccessComponent,
+    QrCodeComponent,
   ],
   imports: [
     BrowserModule,

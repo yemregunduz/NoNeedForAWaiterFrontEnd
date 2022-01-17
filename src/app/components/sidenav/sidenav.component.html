@@ -31,6 +31,10 @@
             <mat-icon class="menu-icon">people</mat-icon>
             <span>Çalışanlarım</span>
         </button>
+        <button mat-button class="menu-button" routerLink="/mainpage/qrcodes" (click)="closeSidenavAfterClick()" >
+            <mat-icon class="menu-icon">qr_code</mat-icon>
+            <span>QrCode</span>
+        </button>
         <mat-divider></mat-divider>
         <button mat-button class="menu-button" routerLink="/mainpage/profile" (click)="closeSidenavAfterClick()">
             <mat-icon class="menu-icon">manage_accounts</mat-icon>
@@ -57,6 +61,9 @@
         </div>
         <div class="container" *ngIf="router.url=='/mainpage/orders'">
             <app-order (scrolled)="scrollUp()"></app-order>
+        </div>
+        <div class="container" *ngIf="router.url=='/mainpage/qrcodes'">
+            <app-qr-code (scrolled)="scrollUp()"></app-qr-code>
         </div>
     </mat-sidenav-content>
 </mat-sidenav-container>

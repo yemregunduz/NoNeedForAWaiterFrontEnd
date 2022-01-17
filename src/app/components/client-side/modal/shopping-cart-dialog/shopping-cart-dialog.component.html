@@ -1,3 +1,4 @@
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
 <div style="background-color: black; height:30px; width:auto"><h2 class="menu-group-heading">
 	YEMEK SEPETİM
   </h2></div>
@@ -5,7 +6,13 @@
 <mat-dialog-content>
 	
 	<div class="container" style="overflow-x:hidden;">
-		
+		<div clas="row" *ngIf="cartItems.length<=0">
+			<span class="badge badge-boxed badge-soft-warning">SEPETİNİZ BOŞ</span>
+			
+		</div>
+		<div class="row" *ngIf="cartItems.length<=0">
+			<i class="fa fa-shopping-cart text-danger" style="font-size: 200px;"></i>
+		</div>
 		<div class="menu" style="margin-top: 50px" *ngFor="let cartItem of cartItems">
 				  <div class="row" >
 					  <div
@@ -27,7 +34,7 @@
 							<span class="menu-item-name"
 							  ><b>{{ cartItem.product.productName }}</b></span
 							>
-							<span class="menu-item-price">{{cartItem.quantity}}x{{cartItem.product.unitPrice}} = {{ cartItem.product.unitPrice*cartItem.quantity }}₺</span>
+							<span class="menu-item-price">{{cartItem.lineTotal}}₺</span>
 						  </h3>
 						  <p class="menu-item-description">
 							{{ cartItem.product.productDescription }}
@@ -58,6 +65,7 @@
 	  </div>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
-    <button mat-button color="warn" mat-dialog-close>Menüye dön</button>
-    <button mat-stroked-button  color="success" cdkFocusInitial  >Sepeti Onayla</button>
+    <button mat-button color="warn" mat-dialog-close routerLink="/clientside">Menüye dön</button>
+    <button *ngIf="cartItems.length>0" mat-stroked-button  color="success" cdkFocusInitial routerLink="/payment" mat-dialog-close >Sepeti Onayla</button>
+	<button *ngIf="cartItems.length<=0" mat-stroked-button disabled color="success" cdkFocusInitial routerLink="/payment" (click)="clickOnConfirmCart()" >Sepeti Onayla</button>
 </mat-dialog-actions>

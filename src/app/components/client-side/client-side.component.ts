@@ -34,7 +34,6 @@ export class ClientSideComponent implements OnInit {
   getAllProductDetailsDtoByRestaurantId(){
     this.productService.getAllProductDetailsDtoByRestaurantId(this.restaurantIdFromStorage).subscribe(response=>{
       this.products = response.data
-   
     })
   }
   getAllCategories(){
@@ -89,12 +88,18 @@ export class ClientSideComponent implements OnInit {
     }
   }
   checkCartItemQuantity(product:Product){
-    (document.getElementById(product.id+'quantity') as HTMLInputElement).value=this.cartItems.find(c=>c.product.id==product.id).quantity.toString()
+      (document.getElementById(product.id+'quantity') as HTMLInputElement).value=this.cartItems.find(c=>c.product.id==product.id).quantity.toString()
+  }
+  setCartItemQuantity(product:Product){
+    return this.cartItems.find(c=>c.product.id == product.id).quantity
   }
   openShoppingCartDialog(cartItems:CartItem[]){
     const shoppingCartDialogRef = this.dialog.open(ShoppingCartDialogComponent,{
       minWidth:'25%',
-      data:cartItems
+      data:cartItems,
+    })
+    shoppingCartDialogRef.componentInstance.clickOnConfirmCartOut.subscribe(response=>{
+      shoppingCartDialogRef.close();
     })
   }
 }

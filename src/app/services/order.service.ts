@@ -4,6 +4,7 @@ import { ListResponseModel } from '../models/listResponseModel';
 import { Order } from '../models/order';
 import { OrderTableDto } from '../models/orderTableDto';
 import { ResponseModel } from '../models/responseModel';
+import { SingleResponseModel } from '../models/singleResponseModel';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,7 @@ export class OrderService {
 
   addOrder(order:Order){
     let newPath = this.apiUrl+"add"
-    return this.httpClient.post<ResponseModel>(newPath,order);
+    return this.httpClient.post<SingleResponseModel<Order>>(newPath,order);
   }
   deleteOrder(order:Order){
     let newPath = this.apiUrl+"delete"

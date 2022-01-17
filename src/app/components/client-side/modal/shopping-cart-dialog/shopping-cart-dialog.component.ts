@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, EventEmitter, Inject, OnInit, Output } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
 import { CartItem } from 'src/app/models/cartItem';
@@ -17,6 +17,8 @@ export class ShoppingCartDialogComponent implements OnInit {
   cartTotal:any=sessionStorage.getItem("cartTotal")
   restaurantIdFromStorage = parseInt(localStorage.getItem("restaurantId"))
   quantity:number= 0
+  @Output() clickOnConfirmCartOut = new EventEmitter();
+  @Output() addToCartOut = new EventEmitter();
   ngOnInit(): void {
   }
   getProductImagePath(productImagePath:string){
@@ -36,8 +38,9 @@ export class ShoppingCartDialogComponent implements OnInit {
       sessionStorage.setItem("cartItems",JSON.stringify(this.cartItems))
       this.calculateCartTotal()
     }
+    this.addToCartOut.emit();
     this.checkCartItemQuantity(product)
-    
+    console.log(product)
     console.log(this.cartItems)
   }
   calculateCartTotal(){
@@ -67,6 +70,9 @@ export class ShoppingCartDialogComponent implements OnInit {
   }
   checkCartItemQuantity(product:Product){
     (document.getElementById(product.id+'quantity') as HTMLInputElement).value=this.cartItems.find(c=>c.product.id==product.id).quantity.toString()
+  }
+  clickOnConfirmCart(){
+    this.clickOnConfirmCartOut.emit()
   }
   
 }
