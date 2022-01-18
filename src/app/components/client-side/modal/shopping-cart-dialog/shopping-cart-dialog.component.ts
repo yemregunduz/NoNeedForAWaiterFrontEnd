@@ -16,6 +16,7 @@ export class ShoppingCartDialogComponent implements OnInit {
   constructor(@Inject(MAT_DIALOG_DATA) public cartItems:CartItem[],private productImageService:ProductImageService,private cartService:CartService,private toastrService:ToastrService) { }
   cartTotal:any=sessionStorage.getItem("cartTotal")
   restaurantIdFromStorage = parseInt(localStorage.getItem("restaurantId"))
+  tableIdFromStorage= parseInt(sessionStorage.getItem("tableId"))
   quantity:number= 0
   @Output() clickOnConfirmCartOut = new EventEmitter();
   @Output() addToCartOut = new EventEmitter();

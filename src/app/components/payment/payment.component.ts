@@ -95,6 +95,7 @@ export class PaymentComponent implements OnInit {
                 if(sessionStorage.getItem("cartItems")!=null){
                   sessionStorage.removeItem("cartItems")
                   sessionStorage.removeItem("cartTotal")
+                  this.cartService.removeAllCart();
                   this.toastrService.success("Siparişiniz alındı.","Sepet temizlendi.")
                   this.router.navigate(['/paymentsuccess'])
                 }

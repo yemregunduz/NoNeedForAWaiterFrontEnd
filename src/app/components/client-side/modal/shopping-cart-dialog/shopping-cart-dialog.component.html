@@ -65,7 +65,7 @@
 	  </div>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
-    <button mat-button color="warn" mat-dialog-close routerLink="/clientside">Menüye dön</button>
+    <button mat-button color="warn" mat-dialog-close routerLink="/clientside/{{tableIdFromStorage}}">Menüye dön</button>
     <button *ngIf="cartItems.length>0" mat-stroked-button  color="success" cdkFocusInitial routerLink="/payment" mat-dialog-close >Sepeti Onayla</button>
 	<button *ngIf="cartItems.length<=0" mat-stroked-button disabled color="success" cdkFocusInitial routerLink="/payment" (click)="clickOnConfirmCart()" >Sepeti Onayla</button>
 </mat-dialog-actions>
