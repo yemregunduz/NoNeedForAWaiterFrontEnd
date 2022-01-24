@@ -7,7 +7,7 @@
         </div>
 
         <div class="form-group col-md-4" *ngIf="productImages.length==0 && productImagePath==null">
-          <img class="avatar"  src="assets/images/defaultproductimage.jpg" style="cursor: pointer;" onclick="document.getElementById('fileToUpload').click()" />
+          <img class="avatar"  src="assets/images/defaultproductimage.png" style="cursor: pointer;" onclick="document.getElementById('fileToUpload').click()" />
         </div>
         <div class="form-group col-md-4" *ngIf="productImagePath!=null">
           <img class="avatar"  style="cursor: pointer;" onclick="document.getElementById('fileToUpload').click()" [src]="productImagePath" />
