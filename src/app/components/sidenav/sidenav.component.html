@@ -49,21 +49,7 @@
             <span>Çıkış yap</span>
         </button>
     </mat-sidenav>
-    <mat-sidenav-content id="matSidenav" style="overflow-x: hidden;">
-        <div class="container" *ngIf="router.url=='/mainpage/products'" style="margin-top: 2%;">
-            <app-product (scrolled)="scrollUp()"></app-product>
-        </div>
-        <div class="container" *ngIf="router.url=='/mainpage/users'">
-            <app-user (scrolled)="scrollUp()"></app-user>
-        </div>
-        <div class="container" *ngIf="router.url.includes('/mainpage/profile')">
-            <app-profile (onUpdated)="getUserDetailDtoByUserId()"></app-profile>
-        </div>
-        <div class="container" *ngIf="router.url=='/mainpage/orders'">
-            <app-order (scrolled)="scrollUp()"></app-order>
-        </div>
-        <div class="container" *ngIf="router.url=='/mainpage/qrcodes'">
-            <app-qr-code (scrolled)="scrollUp()"></app-qr-code>
-        </div>
+    <mat-sidenav-content id="matSidenavContent" style="overflow-x: hidden;">
+        <router-outlet (scrolled)="scrollUp()"></router-outlet>
     </mat-sidenav-content>
 </mat-sidenav-container>

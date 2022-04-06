@@ -55,7 +55,7 @@ export class SidenavComponent implements OnInit {
     }
   }
   scrollUp(){
-    $("#matSidenav").scrollTop(0)
+    $("#matSidenavContent").scrollTop(0)
   }
   getUserDetailDtoByUserId(){
     this.userService.getUserDetailDtoByUserId(parseInt(this.localStorageService.getItem("userId"))).subscribe(response=>{
