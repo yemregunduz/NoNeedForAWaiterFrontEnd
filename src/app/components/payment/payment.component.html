@@ -59,12 +59,12 @@
                         <td class="text-center">
                           {{ cartItem.product.unitPrice }}₺
                         </td>
-                        <td class="text-right">{{ cartItem.lineTotal }}</td>
+                        <td class="text-right">{{ cartItem.lineTotal }}₺g</td>
                       </tr>
                       <tr>
-                        <td colspan="3"></td>
+                        <td colspan="4"></td>
                         <td class="text-right">
-                          <strong>Toplam Tutar:</strong>
+                          <strong>Toplam Tutar:  </strong><b style="color: red;">{{cartTotal}}₺</b> 
                         </td>
                         <td class="text-right"><strong></strong></td>
                       </tr>
@@ -135,7 +135,7 @@
                       </mat-panel-description>
                     </mat-expansion-panel-header>
                     <div class="row">
-                      <h2>Sipariş Özeti</h2>
+                      <h2>Kart bilgileri</h2>
 
                       <div class="col-md-12">
                         <form role="form" id="payment-form">
