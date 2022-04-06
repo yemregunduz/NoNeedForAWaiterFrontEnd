@@ -72,7 +72,7 @@ import { PaymentComponent } from './components/payment/payment.component';
 import { PaymentSuccessComponent } from './components/payment/payment-success/payment-success.component';
 import { QrCodeComponent } from './components/qr-code/qr-code.component';
 import { TableQrCodeDialogComponent } from './components/qr-code/modal/table-qr-code-dialog/table-qr-code-dialog.component';
-import { ReportComponent } from './components/report/report.component';
+
 
 
 
@@ -105,7 +105,7 @@ import { ReportComponent } from './components/report/report.component';
     PaymentSuccessComponent,
     QrCodeComponent,
     TableQrCodeDialogComponent,
-    ReportComponent,
+
   ],
   imports: [
     BrowserModule,

@@ -11,7 +11,6 @@ import { ProductUpdateDialogComponent } from './components/product/modal/product
 import { ProductComponent } from './components/product/product.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { QrCodeComponent } from './components/qr-code/qr-code.component';
-import { ReportComponent } from './components/report/report.component';
 import { SidenavComponent } from './components/sidenav/sidenav.component';
 import { UserAddDialogComponent } from './components/user/modal/user-add-dialog/user-add-dialog.component';
 import { UserUpdateDialogComponent } from './components/user/modal/user-update-dialog/user-update-dialog.component';
@@ -34,7 +33,7 @@ const routes: Routes = [
     {path:"profile",component:ProfileComponent},
     {path:"orders",component:OrderComponent},
     {path:"qrcodes",component:QrCodeComponent},
-    {path:"reports",component:ReportComponent}
+
   ]},
   {path:"login",component:LoginComponent},
   {path:"clientside/:tableId",component:ClientSideComponent},
